@@ -37,9 +37,24 @@
       cursor: pointer;
     }
 
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
     #reader {
       margin-top: 20px;
       width: 100%;
+    }
+
+    #estado {
+      color: #bbb;
+      margin: 25px 0;
     }
 
     #resultado {
@@ -48,67 +63,197 @@
       border-radius: 10px;
       margin-top: 20px;
       text-align: left;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    #resultado h2 {
+      color: #e53935;
     }
   </style>
 </head>
 
 <body>
   <div class="app">
+
     <h1>SENNA <span>PERFORMANCE</span></h1>
     <p>BARCODE SCANNER</p>
 
-    <button onclick="iniciar()">ESCANEAR PRODUCTO</button>
+    <button onclick="iniciarScanner()">
+      ESCANEAR PRODUCTO
+    </button>
 
     <div id="reader"></div>
 
     <p id="estado">Esperando escaneo...</p>
 
+    <input
+      id="codigo"
+      type="text"
+      placeholder="Ingresar código manualmente"
+    >
+
+    <button onclick="buscarProducto()">
+      BUSCAR PRODUCTO
+    </button>
+
     <div id="resultado">
-      La información aparecerá aquí.
+      La información del producto aparecerá aquí.
     </div>
+
   </div>
 
   <script>
-    let scanner;
-    let ocupado = false;
+    const API_URL = "https://script.google.com/macros/s/AKfycbz8Klw5rwcv5oWglOdgoXs6fKhbVvQSRwV27c208S75HoiF5tF_i1PdC2hvrxbhkn0/exec";
 
-    async function iniciar() {
+    let scanner = null;
+    let procesando = false;
+
+    function iniciarScanner() {
       if (scanner) return;
 
-      ocupado = false;
+      procesando = false;
+
       document.getElementById("estado").textContent =
-        "Iniciando cámara...";
+        "Abriendo cámara...";
 
-      try {
-        scanner = new Html5Qrcode("reader");
+      scanner = new Html5Qrcode("reader");
 
-        await scanner.start(
-          { facingMode: "environment" },
-          {
-            fps: 10,
-            qrbox: { width: 250, height: 120 }
-          },
-          async (codigo) => {
-            if (ocupado) return;
-            ocupado = true;
+      scanner.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 120 }
+        },
+        async (codigo) => {
+          if (procesando) return;
 
-            document.getElementById("estado").textContent =
-              "Código detectado";
+          procesando = true;
 
-            document.getElementById("resultado").textContent =
-              "Código leído: " + codigo;
+          document.getElementById("codigo").value = codigo;
 
-            await scanner.stop();
-            scanner = null;
-          },
-          () => {}
-        );
-      } catch (error) {
+          document.getElementById("estado").textContent =
+            "Código leído: " + codigo;
+
+          await detenerScanner();
+
+          buscarProducto();
+        },
+        () => {}
+      ).catch(error => {
         document.getElementById("estado").textContent =
           "Error de cámara: " + error;
+
         scanner = null;
+      });
+    }
+
+    async function detenerScanner() {
+      if (!scanner) return;
+
+      const actual = scanner;
+      scanner = null;
+
+      try {
+        await actual.stop();
+        await actual.clear();
+      } catch (error) {
+        console.log(error);
       }
+    }
+
+    function buscarProducto() {
+      const codigo = document.getElementById("codigo").value.trim();
+
+      if (!codigo) {
+        document.getElementById("estado").textContent =
+          "Ingresa un código de barras.";
+        return;
+      }
+
+      document.getElementById("estado").textContent =
+        "Consultando Google Sheets...";
+
+      document.getElementById("resultado").textContent =
+        "Buscando producto...";
+
+      const anterior = document.getElementById("consultaJSONP");
+      if (anterior) anterior.remove();
+
+      window.sennaBarcodeCallback = function(data) {
+        const resultado = document.getElementById("resultado");
+
+        resultado.replaceChildren();
+
+        if (data === null) {
+          resultado.textContent =
+            "Producto no encontrado en la base de datos.";
+
+          document.getElementById("estado").textContent =
+            "No se encontró el producto.";
+
+          return;
+        }
+
+        if (data.error) {
+          resultado.textContent = data.error;
+
+          document.getElementById("estado").textContent =
+            "Error al consultar la base de datos.";
+
+          return;
+        }
+
+        const titulo = document.createElement("h2");
+        titulo.textContent = data.producto || "Producto";
+        resultado.appendChild(titulo);
+
+        const campos = [
+          ["Código", data.codigo],
+          ["Marca", data.marca],
+          ["Categoría", data.categoria],
+          ["Precio", "$" + Number(data.precio || 0).toLocaleString("es-CL")],
+          ["Descripción", data.descripcion]
+        ];
+
+        campos.forEach(([nombre, valor]) => {
+          const linea = document.createElement("p");
+          const etiqueta = document.createElement("strong");
+
+          etiqueta.textContent = nombre + ": ";
+
+          linea.appendChild(etiqueta);
+          linea.appendChild(
+            document.createTextNode(valor || "-")
+          );
+
+          resultado.appendChild(linea);
+        });
+
+        document.getElementById("estado").textContent =
+          "Producto encontrado correctamente";
+      };
+
+      const script = document.createElement("script");
+
+      script.id = "consultaJSONP";
+      script.src =
+        API_URL +
+        "?action=buscar" +
+        "&codigo=" + encodeURIComponent(codigo) +
+        "&callback=sennaBarcodeCallback";
+
+      script.onerror = function() {
+        document.getElementById("estado").textContent =
+          "Error de conexión con Google Sheets.";
+        document.getElementById("resultado").textContent =
+          "No se pudo consultar la base de datos.";
+        script.remove();
+      };
+
+      document.body.appendChild(script);
     }
   </script>
 </body>
 </html>
+
