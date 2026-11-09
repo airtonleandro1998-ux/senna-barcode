@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#151515">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SENNA PERFORMANCE">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SENNA BARCODE</title>
@@ -9,6 +14,15 @@
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <style>
+    <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("SENNA PWA instalada correctamente"))
+      .catch(error => console.error("Error PWA:", error));
+  });
+}
+</script>
     body {
       background: #151515;
       color: white;
