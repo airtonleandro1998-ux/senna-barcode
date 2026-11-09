@@ -1,0 +1,19 @@
+{
+  "name": "SENNA PERFORMANCE",
+  "short_name": "SENNA",
+  "description": "Lector de códigos de barras de SENNA PERFORMANCE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#151515",
+  "theme_color": "#151515",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
