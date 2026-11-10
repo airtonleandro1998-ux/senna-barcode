@@ -13,256 +13,49 @@
 
   <style>
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #151515;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
+    body { margin: 0; padding: 20px; background: #151515; color: white; font-family: Arial, sans-serif; }
     .container { max-width: 560px; margin: auto; }
     header { text-align: center; margin-bottom: 22px; }
-
-    h1 {
-      margin: 0;
-      color: #e52323;
-      font-size: 27px;
-      letter-spacing: 2px;
-    }
-
+    h1 { margin: 0; color: #e52323; font-size: 27px; letter-spacing: 2px; }
     h2 { font-size: 19px; margin: 0 0 16px; }
-
-    .subtitle {
-      color: #aaa;
-      font-size: 13px;
-      margin-top: 7px;
-    }
-
-    .panel {
-      background: #242424;
-      border: 1px solid #393939;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #ddd;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #555;
-      background: #151515;
-      color: white;
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-
-    button {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 8px;
-      background: #e52323;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 9px;
-    }
-
+    .subtitle { color: #aaa; font-size: 13px; margin-top: 7px; }
+    .panel { background: #242424; border: 1px solid #393939; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    label { display: block; margin-bottom: 8px; color: #ddd; font-size: 14px; font-weight: bold; }
+    input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #151515; color: white; font-size: 15px; margin-bottom: 12px; }
+    button { width: 100%; padding: 13px; border: none; border-radius: 8px; background: #e52323; color: white; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 9px; }
     button.secondary { background: #444; }
     button.danger { background: #702323; }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    #reader {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-
-    #mensaje, #mensajeAcceso {
-      color: #bbb;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 10px;
-    }
-
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    #reader { width: 100%; overflow: hidden; border-radius: 8px; margin-bottom: 12px; }
+    #mensaje, #mensajeAcceso { color: #bbb; font-size: 14px; text-align: center; margin-top: 10px; }
     #resultado, #aplicacion { display: none; }
-
-    .product-name {
-      font-size: 21px;
-      font-weight: bold;
-      margin: 5px 0 12px;
-    }
-
-    .price {
-      color: #e52323;
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .data-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid #3d3d3d;
-      font-size: 14px;
-    }
-
+    .product-name { font-size: 21px; font-weight: bold; margin: 5px 0 12px; }
+    .price { color: #e52323; font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+    .data-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #3d3d3d; font-size: 14px; }
     .data-row span:first-child { color: #aaa; }
     .data-row strong { text-align: right; }
-
-    .stock-title {
-      margin-top: 18px;
-      color: #e52323;
-      font-weight: bold;
-    }
-
-    .stock-total {
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 12px;
-      text-align: center;
-    }
-
+    .stock-title { margin-top: 18px; color: #e52323; font-weight: bold; }
+    .stock-total { font-size: 18px; font-weight: bold; margin-top: 12px; text-align: center; }
     .error { color: #ff6868 !important; }
     .success { color: #66d98b !important; }
-
-    .user-info {
-      color: #ddd;
-      text-align: center;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .section-title {
-      color: #e52323;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .cart-item {
-      background: #191919;
-      border: 1px solid #414141;
-      border-radius: 9px;
-      padding: 13px;
-      margin-bottom: 12px;
-    }
-
-    .cart-name {
-      font-weight: bold;
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .cart-meta {
-      color: #aaa;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .cart-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
+    .user-info { color: #ddd; text-align: center; font-size: 13px; line-height: 1.7; }
+    .section-title { color: #e52323; font-weight: bold; margin-bottom: 15px; }
+    .cart-item { background: #191919; border: 1px solid #414141; border-radius: 9px; padding: 13px; margin-bottom: 12px; }
+    .cart-name { font-weight: bold; font-size: 15px; margin-bottom: 5px; }
+    .cart-meta { color: #aaa; font-size: 12px; margin-bottom: 12px; }
+    .cart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cart-grid input, .cart-grid select { margin-bottom: 7px; }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 8px 0 12px;
-    }
-
-    .quantity-controls button {
-      width: 38px;
-      height: 36px;
-      padding: 0;
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .quantity-value {
-      min-width: 35px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .item-total {
-      text-align: right;
-      font-size: 16px;
-      font-weight: bold;
-      color: #66d98b;
-      margin-top: 7px;
-    }
-
-    .remove-button {
-      background: #702323;
-      margin-top: 10px;
-    }
-
-    .total-box {
-      background: #191919;
-      border-radius: 9px;
-      padding: 15px;
-      margin-top: 14px;
-    }
-
-    .total-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 7px 0;
-      color: #ccc;
-      font-size: 14px;
-    }
-
-    .total-final {
-      color: #66d98b;
-      font-size: 23px;
-      font-weight: bold;
-      border-top: 1px solid #444;
-      margin-top: 9px;
-      padding-top: 14px;
-    }
-
-    .empty-cart {
-      color: #888;
-      text-align: center;
-      padding: 25px 5px;
-      font-size: 14px;
-    }
-
-    #mensajeVenta {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    footer {
-      text-align: center;
-      color: #666;
-      font-size: 11px;
-      margin-top: 25px;
-    }
+    .quantity-controls { display: flex; align-items: center; gap: 8px; margin: 8px 0 12px; }
+    .quantity-controls button { width: 38px; height: 36px; padding: 0; margin: 0; font-size: 20px; }
+    .quantity-value { min-width: 35px; text-align: center; font-weight: bold; }
+    .item-total { text-align: right; font-size: 16px; font-weight: bold; color: #66d98b; margin-top: 7px; }
+    .remove-button { background: #702323; margin-top: 10px; }
+    .total-box { background: #191919; border-radius: 9px; padding: 15px; margin-top: 14px; }
+    .total-line { display: flex; justify-content: space-between; padding: 7px 0; color: #ccc; font-size: 14px; }
+    .total-final { color: #66d98b; font-size: 23px; font-weight: bold; border-top: 1px solid #444; margin-top: 9px; padding-top: 14px; }
+    .empty-cart { color: #888; text-align: center; padding: 25px 5px; font-size: 14px; }
+    #mensajeVenta { text-align: center; font-size: 14px; margin-top: 12px; }
+    footer { text-align: center; color: #666; font-size: 11px; margin-top: 25px; }
   </style>
 </head>
 
@@ -271,15 +64,11 @@
 
   <header>
     <h1>SENNA PERFORMANCE</h1>
-    <div class="subtitle">
-      SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO
-    </div>
+    <div class="subtitle">SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO</div>
   </header>
 
   <div id="verificando" class="panel">
-    <div id="mensajeAcceso" class="user-info">
-      Verificando sesión...
-    </div>
+    <div id="mensajeAcceso" class="user-info">Verificando sesión...</div>
   </div>
 
   <main id="aplicacion">
@@ -306,8 +95,7 @@
 
     <section class="panel">
       <label for="codigoManual">BÚSQUEDA MANUAL</label>
-      <input type="text" id="codigoManual"
-        placeholder="Código de barras o SKU" autocomplete="off">
+      <input type="text" id="codigoManual" placeholder="Código de barras o SKU" autocomplete="off">
       <button onclick="buscarManual()">BUSCAR PRODUCTO</button>
     </section>
 
@@ -315,21 +103,16 @@
       <div class="subtitle">PRODUCTO ENCONTRADO</div>
       <div class="product-name" id="nombreProducto"></div>
       <div class="price" id="precioProducto"></div>
-
       <div class="data-row"><span>SKU</span><strong id="skuProducto"></strong></div>
       <div class="data-row"><span>Código de barras</span><strong id="barcodeProducto"></strong></div>
       <div class="data-row"><span>Marca</span><strong id="marcaProducto"></strong></div>
       <div class="data-row"><span>Categoría</span><strong id="categoriaProducto"></strong></div>
-
       <div class="stock-title">INVENTARIO DE AMBAS TIENDAS</div>
       <div class="data-row"><span>Stock Los Andes</span><strong id="stockLosAndes"></strong></div>
       <div class="data-row"><span>Stock Santiago</span><strong id="stockSantiago"></strong></div>
       <div class="stock-total" id="stockLocal"></div>
       <div class="stock-total" id="stockTotal"></div>
-
-      <button id="btnAgregar" onclick="agregarAlCarrito()">
-        AGREGAR AL CARRITO
-      </button>
+      <button id="btnAgregar" onclick="agregarAlCarrito()">AGREGAR AL CARRITO</button>
     </section>
 
     <section class="panel">
@@ -338,20 +121,10 @@
       <div id="listaCarrito">
         <div class="empty-cart">Todavía no hay productos en el carrito.</div>
       </div>
-
       <div class="total-box">
-        <div class="total-line">
-          <span>Subtotal original</span>
-          <strong id="subtotalOriginal">$0</strong>
-        </div>
-        <div class="total-line">
-          <span>Descuentos</span>
-          <strong id="descuentoTotal">$0</strong>
-        </div>
-        <div class="total-line total-final">
-          <span>TOTAL</span>
-          <strong id="totalVenta">$0</strong>
-        </div>
+        <div class="total-line"><span>Subtotal original</span><strong id="subtotalOriginal">$0</strong></div>
+        <div class="total-line"><span>Descuentos</span><strong id="descuentoTotal">$0</strong></div>
+        <div class="total-line total-final"><span>TOTAL</span><strong id="totalVenta">$0</strong></div>
       </div>
     </section>
 
@@ -365,19 +138,14 @@
         <option value="CREDITO">Crédito</option>
         <option value="TRANSFERENCIA">Transferencia</option>
       </select>
-
-      <button id="btnConfirmar" onclick="confirmarVenta()">
-        CONFIRMAR VENTA
-      </button>
+      <button id="btnConfirmar" onclick="confirmarVenta()">CONFIRMAR VENTA</button>
       <button class="secondary" onclick="vaciarCarrito()">VACIAR CARRITO</button>
       <div id="mensajeVenta"></div>
     </section>
 
   </main>
 
-  <footer>
-    SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO
-  </footer>
+  <footer>SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO</footer>
 </div>
 
 <script>
@@ -386,7 +154,7 @@
  ************************************************************/
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbxeyjgGrmDCknfVzFciuFjXu9LjtS_21XW4citO2eghtBy_Mw8u9pLfDfPHIhXo3nFh/exec";
+  "https://script.google.com/macros/s/AKfycbw25B2iLtyNVs0Mul5ULACNzrODmTRQI8sfGOpHIiwb5CNJXw2p20m_gvruZKGotvPW/exec";
 
 const LOGIN_URL = API_URL;
 
@@ -437,7 +205,6 @@ function recuperarToken() {
 
   if (fragmento.startsWith("#token=")) {
     token = decodeURIComponent(fragmento.substring(7));
-
     if (token) sessionStorage.setItem("senna_token", token);
 
     window.history.replaceState(
@@ -1033,7 +800,7 @@ verificarAcceso();
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("SENNA BARCODE: aplicación instalada correctamente"))
+      .then(() => console.log("SENNA BARCODE: PWA lista"))
       .catch(error => console.error("Error PWA:", error));
   });
 }
