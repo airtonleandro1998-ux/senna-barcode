@@ -4,807 +4,708 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#151515">
-  <link rel="manifest" href="./manifest.json">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>SENNA BARCODE</title>
+
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 20px; background: #151515; color: white; font-family: Arial, sans-serif; }
-    .container { max-width: 560px; margin: auto; }
-    header { text-align: center; margin-bottom: 22px; }
-    h1 { margin: 0; color: #e52323; font-size: 27px; letter-spacing: 2px; }
-    h2 { font-size: 19px; margin: 0 0 16px; }
-    .subtitle { color: #aaa; font-size: 13px; margin-top: 7px; }
-    .panel { background: #242424; border: 1px solid #393939; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
-    label { display: block; margin-bottom: 8px; color: #ddd; font-size: 14px; font-weight: bold; }
-    input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #151515; color: white; font-size: 15px; margin-bottom: 12px; }
-    button { width: 100%; padding: 13px; border: none; border-radius: 8px; background: #e52323; color: white; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 9px; }
-    button.secondary { background: #444; }
-    button.danger { background: #702323; }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
-    #reader { width: 100%; overflow: hidden; border-radius: 8px; margin-bottom: 12px; }
-    #mensaje, #mensajeAcceso { color: #bbb; font-size: 14px; text-align: center; margin-top: 10px; }
-    #resultado, #aplicacion { display: none; }
-    .product-name { font-size: 21px; font-weight: bold; margin: 5px 0 12px; }
-    .price { color: #e52323; font-size: 24px; font-weight: bold; margin-bottom: 15px; }
-    .data-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #3d3d3d; font-size: 14px; }
-    .data-row span:first-child { color: #aaa; }
-    .data-row strong { text-align: right; }
-    .stock-title { margin-top: 18px; color: #e52323; font-weight: bold; }
-    .stock-total { font-size: 18px; font-weight: bold; margin-top: 12px; text-align: center; }
-    .error { color: #ff6868 !important; }
-    .success { color: #66d98b !important; }
-    .user-info { color: #ddd; text-align: center; font-size: 13px; line-height: 1.7; }
-    .section-title { color: #e52323; font-weight: bold; margin-bottom: 15px; }
-    .cart-item { background: #191919; border: 1px solid #414141; border-radius: 9px; padding: 13px; margin-bottom: 12px; }
-    .cart-name { font-weight: bold; font-size: 15px; margin-bottom: 5px; }
-    .cart-meta { color: #aaa; font-size: 12px; margin-bottom: 12px; }
-    .cart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .cart-grid input, .cart-grid select { margin-bottom: 7px; }
-    .quantity-controls { display: flex; align-items: center; gap: 8px; margin: 8px 0 12px; }
-    .quantity-controls button { width: 38px; height: 36px; padding: 0; margin: 0; font-size: 20px; }
-    .quantity-value { min-width: 35px; text-align: center; font-weight: bold; }
-    .item-total { text-align: right; font-size: 16px; font-weight: bold; color: #66d98b; margin-top: 7px; }
-    .remove-button { background: #702323; margin-top: 10px; }
-    .total-box { background: #191919; border-radius: 9px; padding: 15px; margin-top: 14px; }
-    .total-line { display: flex; justify-content: space-between; padding: 7px 0; color: #ccc; font-size: 14px; }
-    .total-final { color: #66d98b; font-size: 23px; font-weight: bold; border-top: 1px solid #444; margin-top: 9px; padding-top: 14px; }
-    .empty-cart { color: #888; text-align: center; padding: 25px 5px; font-size: 14px; }
-    #mensajeVenta { text-align: center; font-size: 14px; margin-top: 12px; }
-    footer { text-align: center; color: #666; font-size: 11px; margin-top: 25px; }
+    :root {
+      --red: #e31b23;
+      --bg: #101010;
+      --panel: #1b1b1b;
+      --panel2: #242424;
+      --text: #f5f5f5;
+      --muted: #aaa;
+      --green: #27c46b;
+      --yellow: #ffc247;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 15px 0 25px;
+    }
+
+    .logo {
+      font-size: 29px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      color: var(--red);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 3px;
+      margin-top: 7px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin: 0 0 15px;
+    }
+
+    .local-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .local-btn {
+      color: white;
+      background: #333;
+      border: 1px solid #555;
+    }
+
+    .local-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .selected-local {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 9px;
+      border: 1px solid #444;
+      background: #101010;
+      color: white;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    input:focus {
+      border-color: var(--red);
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: var(--red);
+      color: white;
+    }
+
+    .secondary-btn {
+      width: 100%;
+      background: #333;
+      color: white;
+      margin-top: 10px;
+    }
+
+    #reader {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .result-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: var(--green);
+      font-size: 25px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .detail {
+      background: var(--panel2);
+      padding: 12px;
+      border-radius: 9px;
+    }
+
+    .detail small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 7px;
+      font-size: 11px;
+    }
+
+    .detail strong {
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .stock-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stock {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 9px;
+      padding: 13px;
+      text-align: center;
+    }
+
+    .stock small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .stock strong {
+      font-size: 25px;
+    }
+
+    .total-stock {
+      background: #302020;
+      border: 1px solid #633;
+      border-radius: 9px;
+      padding: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .total-stock small {
+      display: block;
+      color: #ddd;
+      margin-bottom: 5px;
+    }
+
+    .total-stock strong {
+      color: var(--yellow);
+      font-size: 25px;
+    }
+
+    .message {
+      text-align: center;
+      padding: 14px;
+      border-radius: 9px;
+      background: #292929;
+      color: var(--muted);
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .error {
+      color: #ff7777;
+    }
+
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 11px;
+      padding: 15px;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 12px;
+      }
+
+      .panel {
+        padding: 14px;
+      }
+    }
   </style>
 </head>
 
 <body>
-<div class="container">
+  <main class="container">
 
-  <header>
-    <h1>SENNA PERFORMANCE</h1>
-    <div class="subtitle">SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO</div>
-  </header>
-
-  <div id="verificando" class="panel">
-    <div id="mensajeAcceso" class="user-info">Verificando sesión...</div>
-  </div>
-
-  <main id="aplicacion">
+    <header>
+      <div class="logo">SENNA <span>BARCODE</span></div>
+      <div class="subtitle">SENNA PERFORMANCE</div>
+    </header>
 
     <section class="panel">
-      <div class="user-info">
-        Sesión iniciada por:
-        <strong id="nombreUsuario"></strong>
-        <br>
-        Local asignado:
-        <strong id="localUsuario"></strong>
+      <h2>Seleccionar local</h2>
+
+      <div class="local-buttons">
+        <button
+          id="btnLosAndes"
+          class="local-btn"
+          onclick="seleccionarLocal('LOS ANDES')">
+          LOS ANDES
+        </button>
+
+        <button
+          id="btnSantiago"
+          class="local-btn"
+          onclick="seleccionarLocal('SANTIAGO')">
+          SANTIAGO
+        </button>
       </div>
-      <button class="secondary" onclick="salir()">CERRAR SESIÓN</button>
+
+      <div class="selected-local" id="localActual">
+        Selecciona el local para comenzar.
+      </div>
     </section>
 
     <section class="panel">
-      <h2>Consultar productos</h2>
-      <label>ESCANEAR CÓDIGO DE BARRAS</label>
+      <h2>Buscar producto</h2>
+
+      <input
+        type="text"
+        id="codigo"
+        placeholder="Ingresa código de barras o SKU"
+        autocomplete="off"
+        onkeydown="if(event.key === 'Enter') buscarProducto()">
+
+      <button class="primary-btn" onclick="buscarProducto()">
+        BUSCAR PRODUCTO
+      </button>
+    </section>
+
+    <section class="panel">
+      <h2>Escanear código de barras</h2>
+
       <div id="reader"></div>
-      <button onclick="iniciarCamara()">ACTIVAR CÁMARA</button>
-      <button class="secondary" onclick="detenerCamara()">DETENER CÁMARA</button>
-      <div id="mensaje">Escanea un producto para consultar su inventario.</div>
-    </section>
 
-    <section class="panel">
-      <label for="codigoManual">BÚSQUEDA MANUAL</label>
-      <input type="text" id="codigoManual" placeholder="Código de barras o SKU" autocomplete="off">
-      <button onclick="buscarManual()">BUSCAR PRODUCTO</button>
-    </section>
+      <button
+        id="btnCamara"
+        class="secondary-btn"
+        onclick="iniciarCamara()">
+        ACTIVAR CÁMARA
+      </button>
 
-    <section class="panel" id="resultado">
-      <div class="subtitle">PRODUCTO ENCONTRADO</div>
-      <div class="product-name" id="nombreProducto"></div>
-      <div class="price" id="precioProducto"></div>
-      <div class="data-row"><span>SKU</span><strong id="skuProducto"></strong></div>
-      <div class="data-row"><span>Código de barras</span><strong id="barcodeProducto"></strong></div>
-      <div class="data-row"><span>Marca</span><strong id="marcaProducto"></strong></div>
-      <div class="data-row"><span>Categoría</span><strong id="categoriaProducto"></strong></div>
-      <div class="stock-title">INVENTARIO DE AMBAS TIENDAS</div>
-      <div class="data-row"><span>Stock Los Andes</span><strong id="stockLosAndes"></strong></div>
-      <div class="data-row"><span>Stock Santiago</span><strong id="stockSantiago"></strong></div>
-      <div class="stock-total" id="stockLocal"></div>
-      <div class="stock-total" id="stockTotal"></div>
-      <button id="btnAgregar" onclick="agregarAlCarrito()">AGREGAR AL CARRITO</button>
-    </section>
+      <button
+        id="btnDetener"
+        class="secondary-btn hidden"
+        onclick="detenerCamara()">
+        DETENER CÁMARA
+      </button>
 
-    <section class="panel">
-      <h2>Carrito de ventas</h2>
-      <div class="section-title">PRODUCTOS AGREGADOS</div>
-      <div id="listaCarrito">
-        <div class="empty-cart">Todavía no hay productos en el carrito.</div>
-      </div>
-      <div class="total-box">
-        <div class="total-line"><span>Subtotal original</span><strong id="subtotalOriginal">$0</strong></div>
-        <div class="total-line"><span>Descuentos</span><strong id="descuentoTotal">$0</strong></div>
-        <div class="total-line total-final"><span>TOTAL</span><strong id="totalVenta">$0</strong></div>
+      <div class="status" id="estadoCamara">
+        Presiona activar cámara para escanear un producto.
       </div>
     </section>
 
-    <section class="panel">
-      <h2>Medio de pago</h2>
-      <label for="medioPago">Seleccionar medio de pago</label>
-      <select id="medioPago">
-        <option value="">Seleccionar...</option>
-        <option value="EFECTIVO">Efectivo</option>
-        <option value="DEBITO">Débito</option>
-        <option value="CREDITO">Crédito</option>
-        <option value="TRANSFERENCIA">Transferencia</option>
-      </select>
-      <button id="btnConfirmar" onclick="confirmarVenta()">CONFIRMAR VENTA</button>
-      <button class="secondary" onclick="vaciarCarrito()">VACIAR CARRITO</button>
-      <div id="mensajeVenta"></div>
+    <section id="resultado" class="panel hidden">
+      <h2>Resultado de búsqueda</h2>
+
+      <div id="contenidoResultado"></div>
     </section>
+
+    <div class="footer">
+      SENNA PERFORMANCE · SISTEMA DE INVENTARIO
+    </div>
 
   </main>
 
-  <footer>SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO</footer>
-</div>
+  <script>
+    /**************************************************
+     * CONFIGURACIÓN DE API
+     **************************************************/
 
-<script>
-/************************************************************
- * CONFIGURACIÓN
- ************************************************************/
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbzTw4X9m-sT10Rb5SDXVbzlhZjZmZnfIlsMogYhYV3TmdvWPOQCewb77lWCubOz_aHG/exec";
 
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbw25B2iLtyNVs0Mul5ULACNzrODmTRQI8sfGOpHIiwb5CNJXw2p20m_gvruZKGotvPW/exec";
+    let localSeleccionado = localStorage.getItem("senna_local") || "";
+    let lector = null;
+    let camaraActiva = false;
+    let buscando = false;
 
-const LOGIN_URL = API_URL;
+    /**************************************************
+     * INICIO
+     **************************************************/
 
-let token = null;
-let lector = null;
-let buscando = false;
-let productoActual = null;
-let carrito = [];
-let procesandoVenta = false;
+    document.addEventListener("DOMContentLoaded", function() {
+      if (
+        localSeleccionado !== "LOS ANDES" &&
+        localSeleccionado !== "SANTIAGO"
+      ) {
+        localSeleccionado = "";
+      }
 
-/************************************************************
- * UTILIDADES
- ************************************************************/
-
-function escaparHTML(valor) {
-  return String(valor ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;",
-    '"': "&quot;", "'": "&#39;"
-  })[c]);
-}
-
-function dinero(valor) {
-  return Number(valor || 0).toLocaleString("es-CL", {
-    style: "currency",
-    currency: "CLP",
-    maximumFractionDigits: 0
-  });
-}
-
-function mostrarMensaje(texto, tipo = "") {
-  const mensaje = document.getElementById("mensaje");
-  mensaje.textContent = texto;
-  mensaje.className = tipo;
-}
-
-function mostrarMensajeVenta(texto, tipo = "") {
-  const mensaje = document.getElementById("mensajeVenta");
-  mensaje.textContent = texto;
-  mensaje.className = tipo;
-}
-
-/************************************************************
- * TOKEN
- ************************************************************/
-
-function recuperarToken() {
-  const fragmento = window.location.hash;
-
-  if (fragmento.startsWith("#token=")) {
-    token = decodeURIComponent(fragmento.substring(7));
-    if (token) sessionStorage.setItem("senna_token", token);
-
-    window.history.replaceState(
-      null, document.title,
-      window.location.pathname + window.location.search
-    );
-  } else {
-    token = sessionStorage.getItem("senna_token");
-  }
-}
-
-/************************************************************
- * API JSONP
- ************************************************************/
-
-function llamarAPI(parametros) {
-  return new Promise(function(resolve, reject) {
-    const callback =
-      "sennaCallback_" + Date.now() + "_" +
-      Math.floor(Math.random() * 100000);
-
-    const script = document.createElement("script");
-    let terminado = false;
-
-    const temporizador = setTimeout(() => {
-      finalizarError(new Error("El servidor tardó demasiado en responder."));
-    }, 30000);
-
-    function limpiar() {
-      clearTimeout(temporizador);
-      delete window[callback];
-      script.remove();
-    }
-
-    function finalizarError(error) {
-      if (terminado) return;
-      terminado = true;
-      limpiar();
-      reject(error);
-    }
-
-    window[callback] = function(respuesta) {
-      if (terminado) return;
-      terminado = true;
-      limpiar();
-      resolve(respuesta);
-    };
-
-    const consulta = new URLSearchParams({
-      ...parametros,
-      callback: callback,
-      t: String(Date.now())
+      actualizarLocal();
     });
 
-    script.onerror = () => finalizarError(
-      new Error("No se pudo conectar con el servidor.")
-    );
-
-    script.src = API_URL + "?" + consulta.toString();
-    document.body.appendChild(script);
-  });
-}
-
-/************************************************************
- * SESIÓN
- ************************************************************/
-
-async function verificarAcceso() {
-  recuperarToken();
-
-  if (!token) {
-    volverLogin();
-    return;
-  }
-
-  try {
-    const respuesta = await llamarAPI({
-      action: "validar",
-      token: token
-    });
-
-    if (!respuesta || !respuesta.ok) {
-      volverLogin();
-      return;
-    }
-
-    document.getElementById("nombreUsuario").textContent =
-      respuesta.nombre || "";
-
-    document.getElementById("localUsuario").textContent =
-      respuesta.local || "";
-
-    document.getElementById("verificando").style.display = "none";
-    document.getElementById("aplicacion").style.display = "block";
-
-  } catch (error) {
-    document.getElementById("mensajeAcceso").textContent =
-      "No se pudo validar la sesión: " + error.message;
-  }
-}
-
-function volverLogin() {
-  sessionStorage.removeItem("senna_token");
-  window.location.href = LOGIN_URL;
-}
-
-/************************************************************
- * BÚSQUEDA
- ************************************************************/
-
-function buscarManual() {
-  const codigo = document.getElementById("codigoManual").value.trim();
-
-  if (!codigo) {
-    mostrarMensaje("Ingresa un código o SKU.", "error");
-    return;
-  }
-
-  consultarProducto(codigo);
-}
-
-async function consultarProducto(codigo) {
-  if (buscando) return;
-
-  buscando = true;
-  productoActual = null;
-  document.getElementById("resultado").style.display = "none";
-  mostrarMensaje("Buscando producto...");
-
-  try {
-    const producto = await llamarAPI({
-      action: "buscar",
-      token: token,
-      codigo: codigo
-    });
-
-    buscando = false;
-
-    if (!producto) {
-      mostrarMensaje("No se encontró el producto.", "error");
-      return;
-    }
-
-    if (producto.error === "SESION_INVALIDA") {
-      volverLogin();
-      return;
-    }
-
-    if (producto.error) {
-      mostrarMensaje(producto.mensaje || "Error al consultar.", "error");
-      return;
-    }
-
-    if (!producto.producto) {
-      mostrarMensaje("No se encontró el producto.", "error");
-      return;
-    }
-
-    mostrarProducto(producto);
-
-  } catch (error) {
-    buscando = false;
-    mostrarMensaje("Error de conexión: " + error.message, "error");
-  }
-}
-
-function mostrarProducto(producto) {
-  productoActual = {
-    sku: String(producto.sku),
-    codigo: String(producto.codigo || ""),
-    producto: producto.producto,
-    marca: producto.marca,
-    categoria: producto.categoria,
-    precio: Number(producto.precio),
-    stock: Number(producto.stock)
-  };
-
-  document.getElementById("resultado").style.display = "block";
-  document.getElementById("nombreProducto").textContent = producto.producto || "";
-  document.getElementById("precioProducto").textContent = dinero(producto.precio);
-  document.getElementById("skuProducto").textContent = producto.sku || "";
-  document.getElementById("barcodeProducto").textContent = producto.codigo || "";
-  document.getElementById("marcaProducto").textContent = producto.marca || "";
-  document.getElementById("categoriaProducto").textContent = producto.categoria || "";
-  document.getElementById("stockLosAndes").textContent = producto.stockLosAndes ?? 0;
-  document.getElementById("stockSantiago").textContent = producto.stockSantiago ?? 0;
-  document.getElementById("stockLocal").textContent =
-    "Stock " + producto.local + ": " + producto.stock;
-  document.getElementById("stockTotal").textContent =
-    "Stock total: " + producto.stockTotal;
-  document.getElementById("btnAgregar").disabled =
-    Number(producto.stock) <= 0;
-
-  mostrarMensaje("Producto encontrado correctamente.", "success");
-}
-
-/************************************************************
- * CARRITO
- ************************************************************/
-
-function agregarAlCarrito() {
-  if (!productoActual) {
-    mostrarMensaje("Primero debes buscar un producto.", "error");
-    return;
-  }
-
-  const existente = carrito.find(
-    item => item.sku === productoActual.sku
-  );
-
-  const cantidadActual = existente ? existente.cantidad : 0;
-
-  if (cantidadActual + 1 > productoActual.stock) {
-    mostrarMensaje("No hay stock suficiente.", "error");
-    return;
-  }
-
-  if (existente) {
-    existente.cantidad++;
-  } else {
-    carrito.push({
-      sku: productoActual.sku,
-      codigo: productoActual.codigo,
-      producto: productoActual.producto,
-      precio: productoActual.precio,
-      stock: productoActual.stock,
-      cantidad: 1,
-      tipoDescuento: "NINGUNO",
-      valorDescuento: 0
-    });
-  }
-
-  renderizarCarrito();
-  mostrarMensaje("Producto agregado al carrito.", "success");
-}
-
-function calcularDescuento(item) {
-  const precio = Number(item.precio);
-  const valor = Number(item.valorDescuento || 0);
-
-  if (item.tipoDescuento === "PORCENTAJE") {
-    return Math.round(precio * Math.min(100, Math.max(0, valor)) / 100);
-  }
-
-  if (item.tipoDescuento === "PESOS") {
-    return Math.min(precio, Math.max(0, Math.round(valor)));
-  }
-
-  return 0;
-}
-
-function calcularTotales() {
-  let subtotal = 0;
-  let descuentos = 0;
-  let total = 0;
-
-  carrito.forEach(item => {
-    const descuento = calcularDescuento(item);
-    subtotal += item.precio * item.cantidad;
-    descuentos += descuento * item.cantidad;
-    total += (item.precio - descuento) * item.cantidad;
-  });
-
-  return { subtotal, descuentos, total };
-}
-
-function renderizarCarrito() {
-  const contenedor = document.getElementById("listaCarrito");
-
-  if (carrito.length === 0) {
-    contenedor.innerHTML =
-      '<div class="empty-cart">Todavía no hay productos en el carrito.</div>';
-  } else {
-    contenedor.innerHTML = carrito.map((item, indice) => {
-      const descuento = calcularDescuento(item);
-      const precioFinal = item.precio - descuento;
-
-      return `
-        <div class="cart-item" data-index="${indice}">
-          <div class="cart-name">${escaparHTML(item.producto)}</div>
-          <div class="cart-meta">
-            SKU: ${escaparHTML(item.sku)} ·
-            Precio original: ${dinero(item.precio)}
-          </div>
-
-          <label>Cantidad</label>
-          <div class="quantity-controls">
-            <button type="button" data-action="menos">−</button>
-            <span class="quantity-value">${item.cantidad}</span>
-            <button type="button" data-action="mas">+</button>
-          </div>
-
-          <div class="cart-grid">
-            <div>
-              <label>Tipo de descuento</label>
-              <select data-field="tipoDescuento">
-                <option value="NINGUNO" ${item.tipoDescuento === "NINGUNO" ? "selected" : ""}>Sin descuento</option>
-                <option value="PORCENTAJE" ${item.tipoDescuento === "PORCENTAJE" ? "selected" : ""}>Porcentaje (%)</option>
-                <option value="PESOS" ${item.tipoDescuento === "PESOS" ? "selected" : ""}>Pesos ($)</option>
-              </select>
-            </div>
-            <div>
-              <label>Descuento</label>
-              <input type="number" min="0" step="1"
-                data-field="valorDescuento"
-                value="${item.valorDescuento}"
-                ${item.tipoDescuento === "NINGUNO" ? "disabled" : ""}>
-            </div>
-          </div>
-
-          <div class="data-row">
-            <span>Descuento unitario</span>
-            <strong>${dinero(descuento)}</strong>
-          </div>
-          <div class="data-row">
-            <span>Precio final unitario</span>
-            <strong>${dinero(precioFinal)}</strong>
-          </div>
-          <div class="item-total">
-            Total: ${dinero(precioFinal * item.cantidad)}
-          </div>
-          <button type="button" class="remove-button"
-            data-action="eliminar">ELIMINAR PRODUCTO</button>
-        </div>
-      `;
-    }).join("");
-  }
-
-  const totales = calcularTotales();
-
-  document.getElementById("subtotalOriginal").textContent = dinero(totales.subtotal);
-  document.getElementById("descuentoTotal").textContent = dinero(totales.descuentos);
-  document.getElementById("totalVenta").textContent = dinero(totales.total);
-
-  document.getElementById("btnConfirmar").disabled =
-    carrito.length === 0 || procesandoVenta;
-}
-
-document.getElementById("listaCarrito").addEventListener("click", function(event) {
-  const boton = event.target.closest("button[data-action]");
-  if (!boton) return;
-
-  const tarjeta = boton.closest(".cart-item");
-  const indice = Number(tarjeta.dataset.index);
-
-  if (!Number.isInteger(indice) || !carrito[indice]) return;
-
-  const item = carrito[indice];
-
-  if (boton.dataset.action === "mas") {
-    if (item.cantidad >= item.stock) {
-      mostrarMensajeVenta("No hay más stock disponible.", "error");
-      return;
-    }
-    item.cantidad++;
-  }
-
-  if (boton.dataset.action === "menos") {
-    item.cantidad--;
-    if (item.cantidad <= 0) carrito.splice(indice, 1);
-  }
-
-  if (boton.dataset.action === "eliminar") {
-    carrito.splice(indice, 1);
-  }
-
-  renderizarCarrito();
-});
-
-document.getElementById("listaCarrito").addEventListener("change", function(event) {
-  const campo = event.target.dataset.field;
-  if (!campo) return;
-
-  const tarjeta = event.target.closest(".cart-item");
-  const indice = Number(tarjeta.dataset.index);
-
-  if (!Number.isInteger(indice) || !carrito[indice]) return;
-
-  const item = carrito[indice];
-
-  if (campo === "tipoDescuento") {
-    item.tipoDescuento = event.target.value;
-    if (item.tipoDescuento === "NINGUNO") item.valorDescuento = 0;
-    renderizarCarrito();
-    return;
-  }
-
-  if (campo === "valorDescuento") {
-    let valor = Number(event.target.value);
-    if (!Number.isFinite(valor) || valor < 0) valor = 0;
-
-    if (item.tipoDescuento === "PORCENTAJE") valor = Math.min(100, valor);
-    if (item.tipoDescuento === "PESOS") valor = Math.min(item.precio, valor);
-
-    item.valorDescuento = valor;
-    renderizarCarrito();
-  }
-});
-
-function vaciarCarrito() {
-  if (procesandoVenta) return;
-  carrito = [];
-  document.getElementById("medioPago").value = "";
-  mostrarMensajeVenta("");
-  renderizarCarrito();
-}
-
-/************************************************************
- * CONFIRMAR VENTA
- ************************************************************/
-
-async function confirmarVenta() {
-  if (procesandoVenta) return;
-
-  if (carrito.length === 0) {
-    mostrarMensajeVenta("El carrito está vacío.", "error");
-    return;
-  }
-
-  const medioPago = document.getElementById("medioPago").value;
-
-  if (!medioPago) {
-    mostrarMensajeVenta("Selecciona un medio de pago.", "error");
-    return;
-  }
-
-  const totales = calcularTotales();
-
-  if (totales.total <= 0) {
-    mostrarMensajeVenta("El total debe ser mayor a cero.", "error");
-    return;
-  }
-
-  const confirmacion =
-    "¿Confirmar esta venta?\n\n" +
-    "Productos: " + carrito.length + "\n" +
-    "Descuentos: " + dinero(totales.descuentos) + "\n" +
-    "Total: " + dinero(totales.total) + "\n" +
-    "Pago: " + medioPago;
-
-  if (!window.confirm(confirmacion)) return;
-
-  procesandoVenta = true;
-  renderizarCarrito();
-
-  const venta = {
-    medioPago: medioPago,
-    items: carrito.map(item => ({
-      sku: item.sku,
-      cantidad: item.cantidad,
-      tipoDescuento: item.tipoDescuento,
-      valorDescuento: item.valorDescuento
-    }))
-  };
-
-  mostrarMensajeVenta("Registrando venta...");
-
-  try {
-    const respuesta = await llamarAPI({
-      action: "venta",
-      token: token,
-      venta: JSON.stringify(venta)
-    });
-
-    if (!respuesta || !respuesta.ok) {
-      if (respuesta && respuesta.mensaje === "SESION_INVALIDA") {
-        volverLogin();
+    /**************************************************
+     * SELECCIÓN DE LOCAL
+     **************************************************/
+
+    function seleccionarLocal(local) {
+      if (!["LOS ANDES", "SANTIAGO"].includes(local)) {
         return;
       }
 
-      mostrarMensajeVenta(
-        respuesta?.mensaje || "No se pudo registrar la venta.",
-        "error"
+      localSeleccionado = local;
+      localStorage.setItem("senna_local", local);
+
+      actualizarLocal();
+
+      document.getElementById("resultado").classList.add("hidden");
+      document.getElementById("codigo").focus();
+    }
+
+    function actualizarLocal() {
+      const btnLA = document.getElementById("btnLosAndes");
+      const btnST = document.getElementById("btnSantiago");
+      const texto = document.getElementById("localActual");
+
+      btnLA.classList.toggle(
+        "active",
+        localSeleccionado === "LOS ANDES"
       );
-      return;
+
+      btnST.classList.toggle(
+        "active",
+        localSeleccionado === "SANTIAGO"
+      );
+
+      texto.textContent = localSeleccionado
+        ? "Local seleccionado: " + localSeleccionado
+        : "Selecciona el local para comenzar.";
     }
 
-    carrito = [];
-    productoActual = null;
-    document.getElementById("medioPago").value = "";
-    document.getElementById("resultado").style.display = "none";
-    renderizarCarrito();
+    /**************************************************
+     * COMUNICACIÓN CON GOOGLE APPS SCRIPT
+     * Utiliza JSONP para GitHub Pages.
+     **************************************************/
 
-    mostrarMensajeVenta(
-      "Venta registrada correctamente. Folio: " +
-      respuesta.idVenta + " · Total: " + dinero(respuesta.total),
-      "success"
-    );
+    function llamarAPI(parametros) {
+      return new Promise((resolve, reject) => {
+        const callback = "sennaCallback_" +
+          Date.now() + "_" +
+          Math.floor(Math.random() * 100000);
 
-  } catch (error) {
-    mostrarMensajeVenta(
-      "Error de conexión. Verifica el estado de la venta antes de reintentar: " +
-      error.message,
-      "error"
-    );
+        const script = document.createElement("script");
 
-  } finally {
-    procesandoVenta = false;
-    renderizarCarrito();
-  }
-}
+        const timeout = setTimeout(() => {
+          limpiar();
+          reject(new Error(
+            "Tiempo de espera agotado. Revisa la conexión con Apps Script."
+          ));
+        }, 20000);
 
-/************************************************************
- * CÁMARA
- ************************************************************/
+        function limpiar() {
+          clearTimeout(timeout);
+          delete window[callback];
 
-async function iniciarCamara() {
-  if (typeof Html5Qrcode === "undefined") {
-    mostrarMensaje("No se pudo cargar el lector.", "error");
-    return;
-  }
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
 
-  try {
-    if (!lector) lector = new Html5Qrcode("reader");
+        window[callback] = function(data) {
+          limpiar();
+          resolve(data);
+        };
 
-    const camaras = await Html5Qrcode.getCameras();
+        const query = new URLSearchParams({
+          ...parametros,
+          callback: callback
+        });
 
-    if (!camaras || camaras.length === 0) {
-      mostrarMensaje("No se encontró una cámara disponible.", "error");
-      return;
+        script.src = API_URL + "?" + query.toString();
+
+        script.onerror = function() {
+          limpiar();
+          reject(new Error(
+            "No fue posible conectar con el servidor."
+          ));
+        };
+
+        document.body.appendChild(script);
+      });
     }
 
-    const camaraTrasera =
-      camaras.find(c => /back|rear|environment|trasera/i.test(c.label))
-      || camaras[camaras.length - 1];
+    /**************************************************
+     * BÚSQUEDA DE PRODUCTOS
+     **************************************************/
 
-    await lector.start(
-      camaraTrasera.id,
-      { fps: 10, qrbox: { width: 250, height: 120 }, aspectRatio: 1.5 },
-      async function(codigoLeido) {
-        if (buscando) return;
-        await detenerCamara();
-        document.getElementById("codigoManual").value = codigoLeido;
-        consultarProducto(codigoLeido);
-      },
-      function() {}
-    );
+    async function buscarProducto(codigoEscaneado) {
+      if (buscando) return;
 
-    mostrarMensaje("Cámara activa. Enfoca el código de barras.");
+      if (!localSeleccionado) {
+        mostrarMensaje("Selecciona primero Los Andes o Santiago.", true);
+        return;
+      }
 
-  } catch (error) {
-    mostrarMensaje("No se pudo activar la cámara: " + error, "error");
-  }
-}
+      const codigo = String(
+        codigoEscaneado ||
+        document.getElementById("codigo").value ||
+        ""
+      ).trim();
 
-async function detenerCamara() {
-  if (lector && lector.isScanning) {
-    try {
-      await lector.stop();
-    } catch (error) {
-      console.log(error);
+      if (!codigo) {
+        mostrarMensaje("Ingresa un código de barras o SKU.", true);
+        return;
+      }
+
+      buscando = true;
+      mostrarMensaje("Buscando producto...");
+
+      try {
+        const respuesta = await llamarAPI({
+          action: "buscar",
+          codigo: codigo,
+          local: localSeleccionado
+        });
+
+        if (!respuesta) {
+          throw new Error("El servidor no entregó una respuesta.");
+        }
+
+        if (respuesta.error) {
+          mostrarMensaje(
+            respuesta.mensaje || "No se pudo realizar la búsqueda.",
+            true
+          );
+          return;
+        }
+
+        if (!respuesta.producto) {
+          mostrarMensaje("No se encontró ningún producto.", true);
+          return;
+        }
+
+        mostrarProducto(respuesta);
+
+      } catch (error) {
+        mostrarMensaje(error.message, true);
+      } finally {
+        buscando = false;
+      }
     }
-  }
-}
 
-/************************************************************
- * CERRAR SESIÓN
- ************************************************************/
+    /**************************************************
+     * MOSTRAR RESULTADO
+     **************************************************/
 
-async function salir() {
-  await detenerCamara();
+    function escaparHTML(valor) {
+      return String(valor ?? "").replace(/[&<>"']/g, function(c) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[c];
+      });
+    }
 
-  const tokenActual = token;
-  sessionStorage.removeItem("senna_token");
-  token = null;
+    function formatoPesos(valor) {
+      return "$" + Number(valor || 0).toLocaleString("es-CL");
+    }
 
-  try {
-    await llamarAPI({ action: "cerrar", token: tokenActual });
-  } catch (error) {
-    console.log(error);
-  }
+    function mostrarProducto(p) {
+      const resultado = document.getElementById("resultado");
+      const contenido = document.getElementById("contenidoResultado");
 
-  volverLogin();
-}
+      contenido.innerHTML = `
+        <div class="result-title">
+          ${escaparHTML(p.producto)}
+        </div>
 
-/************************************************************
- * INICIO
- ************************************************************/
+        <div class="price">
+          ${formatoPesos(p.precio)}
+        </div>
 
-document.getElementById("codigoManual").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") buscarManual();
-});
+        <div class="details">
+          <div class="detail">
+            <small>SKU</small>
+            <strong>${escaparHTML(p.sku)}</strong>
+          </div>
 
-renderizarCarrito();
-verificarAcceso();
-</script>
+          <div class="detail">
+            <small>CÓDIGO DE BARRAS</small>
+            <strong>${escaparHTML(p.codigo)}</strong>
+          </div>
 
-<script>
-/************************************************************
- * REGISTRO PWA
- ************************************************************/
+          <div class="detail">
+            <small>MARCA</small>
+            <strong>${escaparHTML(p.marca)}</strong>
+          </div>
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("SENNA BARCODE: PWA lista"))
-      .catch(error => console.error("Error PWA:", error));
-  });
-}
-</script>
+          <div class="detail">
+            <small>CATEGORÍA</small>
+            <strong>${escaparHTML(p.categoria)}</strong>
+          </div>
+        </div>
 
+        <h2 style="margin-top:22px;">Stock por local</h2>
+
+        <div class="stock-box">
+          <div class="stock">
+            <small>LOS ANDES</small>
+            <strong>${Number(p.stockLosAndes || 0)}</strong>
+          </div>
+
+          <div class="stock">
+            <small>SANTIAGO</small>
+            <strong>${Number(p.stockSantiago || 0)}</strong>
+          </div>
+        </div>
+
+        <div class="total-stock">
+          <small>STOCK TOTAL</small>
+          <strong>${Number(p.stockTotal || 0)}</strong>
+        </div>
+
+        <div class="message">
+          Stock en ${escaparHTML(p.local)}:
+          <strong>${Number(p.stock || 0)} unidades</strong>
+        </div>
+      `;
+
+      resultado.classList.remove("hidden");
+      resultado.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function mostrarMensaje(mensaje, esError) {
+      const resultado = document.getElementById("resultado");
+      const contenido = document.getElementById("contenidoResultado");
+
+      resultado.classList.remove("hidden");
+
+      contenido.innerHTML = `
+        <div class="message ${esError ? "error" : ""}">
+          ${escaparHTML(mensaje)}
+        </div>
+      `;
+    }
+
+    /**************************************************
+     * LECTOR DE CÓDIGOS
+     **************************************************/
+
+    async function iniciarCamara() {
+      if (!localSeleccionado) {
+        mostrarMensaje("Selecciona primero el local.", true);
+        return;
+      }
+
+      if (camaraActiva) return;
+
+      try {
+        lector = new Html5Qrcode("reader");
+
+        const configuracion = {
+          fps: 10,
+          qrbox: {
+            width: 280,
+            height: 140
+          },
+          aspectRatio: 1.5
+        };
+
+        await lector.start(
+          { facingMode: "environment" },
+          configuracion,
+          async function(codigo) {
+            if (!codigo || buscando) return;
+
+            document.getElementById("codigo").value = codigo;
+
+            await detenerCamara();
+            await buscarProducto(codigo);
+          }
+        );
+
+        camaraActiva = true;
+
+        document.getElementById("btnCamara")
+          .classList.add("hidden");
+
+        document.getElementById("btnDetener")
+          .classList.remove("hidden");
+
+        document.getElementById("estadoCamara").textContent =
+          "Cámara activa. Apunta al código de barras.";
+
+      } catch (error) {
+        document.getElementById("estadoCamara").textContent =
+          "No se pudo activar la cámara. Verifica los permisos del navegador.";
+      }
+    }
+
+    async function detenerCamara() {
+      if (!lector || !camaraActiva) return;
+
+      try {
+        await lector.stop();
+        await lector.clear();
+      } catch (error) {
+        console.log("No se pudo detener la cámara:", error);
+      }
+
+      camaraActiva = false;
+      lector = null;
+
+      document.getElementById("btnCamara")
+        .classList.remove("hidden");
+
+      document.getElementById("btnDetener")
+        .classList.add("hidden");
+
+      document.getElementById("estadoCamara").textContent =
+        "Cámara detenida.";
+    }
+  </script>
 </body>
 </html>
