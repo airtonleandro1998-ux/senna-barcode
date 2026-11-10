@@ -1,270 +1,462 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#151515">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="SENNA PERFORMANCE">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151515">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SENNA PERFORMANCE">
+  <link rel="manifest" href="./manifest.json">
   <title>SENNA BARCODE</title>
 
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <style>
-    <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("SENNA PWA instalada correctamente"))
-      .catch(error => console.error("Error PWA:", error));
-  });
-}
-</script>
+    * { box-sizing: border-box; }
+
     body {
+      margin: 0;
+      padding: 20px;
       background: #151515;
       color: white;
       font-family: Arial, sans-serif;
-      padding: 20px;
-      margin: 0;
     }
 
-    .app {
-      max-width: 450px;
+    .container {
+      max-width: 520px;
       margin: auto;
-      text-align: center;
     }
 
-    h1 span { color: #e53935; }
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #e52323;
+      font-size: 27px;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .panel {
+      background: #242424;
+      border: 1px solid #393939;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ddd;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #151515;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
 
     button {
-      background: #e53935;
-      color: white;
-      border: none;
-      padding: 16px;
       width: 100%;
+      padding: 14px;
+      border: none;
       border-radius: 8px;
-      margin-top: 15px;
-      font-size: 16px;
+      background: #e52323;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
+      margin-bottom: 10px;
     }
 
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 16px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
+    button.secondary {
+      background: #444;
     }
 
     #reader {
-      margin-top: 20px;
       width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 12px;
     }
 
-    #estado {
+    #mensaje {
       color: #bbb;
-      margin: 25px 0;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
     }
 
     #resultado {
-      background: #292929;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: left;
-      line-height: 1.8;
-      overflow-wrap: anywhere;
+      display: none;
     }
 
-    #resultado h2 {
-      color: #e53935;
+    .product-name {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 5px 0 15px;
+    }
+
+    .price {
+      color: #e52323;
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid #3d3d3d;
+      font-size: 14px;
+    }
+
+    .data-row span:first-child {
+      color: #aaa;
+    }
+
+    .data-row strong {
+      text-align: right;
+    }
+
+    .stock-title {
+      margin-top: 18px;
+      color: #e52323;
+      font-weight: bold;
+    }
+
+    .stock-total {
+      font-size: 19px;
+      font-weight: bold;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .error {
+      color: #ff6868 !important;
+    }
+
+    .success {
+      color: #66d98b !important;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 11px;
+      margin-top: 25px;
     }
   </style>
 </head>
 
 <body>
-  <div class="app">
+  <div class="container">
 
-    <h1>SENNA <span>PERFORMANCE</span></h1>
-    <p>BARCODE SCANNER</p>
+    <header>
+      <h1>SENNA PERFORMANCE</h1>
+      <div class="subtitle">SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO</div>
+    </header>
 
-    <button onclick="iniciarScanner()">
-      ESCANEAR PRODUCTO
-    </button>
+    <section class="panel">
+      <label for="local">LOCAL DE TRABAJO</label>
 
-    <div id="reader"></div>
+      <select id="local">
+        <option value="LOS ANDES">LOS ANDES</option>
+        <option value="SANTIAGO">SANTIAGO</option>
+      </select>
+    </section>
 
-    <p id="estado">Esperando escaneo...</p>
+    <section class="panel">
+      <label>ESCANEAR CÓDIGO DE BARRAS</label>
 
-    <input
-      id="codigo"
-      type="text"
-      placeholder="Ingresar código manualmente"
-    >
+      <div id="reader"></div>
 
-    <button onclick="buscarProducto()">
-      BUSCAR PRODUCTO
-    </button>
+      <button id="btnCamara" onclick="iniciarCamara()">
+        ACTIVAR CÁMARA
+      </button>
 
-    <div id="resultado">
-      La información del producto aparecerá aquí.
-    </div>
+      <button class="secondary" onclick="detenerCamara()">
+        DETENER CÁMARA
+      </button>
+
+      <div id="mensaje">Selecciona un local y escanea un producto.</div>
+    </section>
+
+    <section class="panel">
+      <label for="codigoManual">BÚSQUEDA MANUAL</label>
+
+      <input
+        type="text"
+        id="codigoManual"
+        placeholder="Ingresa código de barras o SKU"
+        autocomplete="off"
+      >
+
+      <button onclick="buscarManual()">BUSCAR PRODUCTO</button>
+    </section>
+
+    <section class="panel" id="resultado">
+      <div class="subtitle">PRODUCTO ENCONTRADO</div>
+
+      <div class="product-name" id="nombreProducto"></div>
+      <div class="price" id="precioProducto"></div>
+
+      <div class="data-row">
+        <span>SKU</span>
+        <strong id="skuProducto"></strong>
+      </div>
+
+      <div class="data-row">
+        <span>Código de barras</span>
+        <strong id="barcodeProducto"></strong>
+      </div>
+
+      <div class="data-row">
+        <span>Marca</span>
+        <strong id="marcaProducto"></strong>
+      </div>
+
+      <div class="data-row">
+        <span>Categoría</span>
+        <strong id="categoriaProducto"></strong>
+      </div>
+
+      <div class="stock-title">INVENTARIO</div>
+
+      <div class="data-row">
+        <span>Stock Los Andes</span>
+        <strong id="stockLosAndes"></strong>
+      </div>
+
+      <div class="data-row">
+        <span>Stock Santiago</span>
+        <strong id="stockSantiago"></strong>
+      </div>
+
+      <div class="stock-total" id="stockLocal"></div>
+
+      <div class="stock-total" id="stockTotal"></div>
+    </section>
+
+    <footer>
+      SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO
+    </footer>
 
   </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbz8Klw5rwcv5oWglOdgoXs6fKhbVvQSRwV27c208S75HoiF5tF_i1PdC2hvrxbhkn0/exec";
 
-    let scanner = null;
-    let procesando = false;
+    let lector = null;
+    let buscando = false;
 
-    function iniciarScanner() {
-      if (scanner) return;
+    const selectorLocal = document.getElementById("local");
 
-      procesando = false;
+    // Recordar el último local seleccionado
+    const localGuardado = localStorage.getItem("senna_local");
 
-      document.getElementById("estado").textContent =
-        "Abriendo cámara...";
-
-      scanner = new Html5Qrcode("reader");
-
-      scanner.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 120 }
-        },
-        async (codigo) => {
-          if (procesando) return;
-
-          procesando = true;
-
-          document.getElementById("codigo").value = codigo;
-
-          document.getElementById("estado").textContent =
-            "Código leído: " + codigo;
-
-          await detenerScanner();
-
-          buscarProducto();
-        },
-        () => {}
-      ).catch(error => {
-        document.getElementById("estado").textContent =
-          "Error de cámara: " + error;
-
-        scanner = null;
-      });
+    if (localGuardado) {
+      selectorLocal.value = localGuardado;
     }
 
-    async function detenerScanner() {
-      if (!scanner) return;
+    selectorLocal.addEventListener("change", function () {
+      localStorage.setItem("senna_local", this.value);
+    });
 
-      const actual = scanner;
-      scanner = null;
-
-      try {
-        await actual.stop();
-        await actual.clear();
-      } catch (error) {
-        console.log(error);
-      }
+    function mostrarMensaje(texto, tipo = "") {
+      const mensaje = document.getElementById("mensaje");
+      mensaje.textContent = texto;
+      mensaje.className = tipo;
     }
 
-    function buscarProducto() {
-      const codigo = document.getElementById("codigo").value.trim();
+    function buscarManual() {
+      const codigo = document.getElementById("codigoManual").value.trim();
 
       if (!codigo) {
-        document.getElementById("estado").textContent =
-          "Ingresa un código de barras.";
+        mostrarMensaje("Ingresa un código o SKU.", "error");
         return;
       }
 
-      document.getElementById("estado").textContent =
-        "Consultando Google Sheets...";
+      consultarProducto(codigo);
+    }
 
-      document.getElementById("resultado").textContent =
-        "Buscando producto...";
+    function consultarProducto(codigo) {
+      if (buscando) return;
 
-      const anterior = document.getElementById("consultaJSONP");
-      if (anterior) anterior.remove();
+      buscando = true;
+      document.getElementById("resultado").style.display = "none";
+      mostrarMensaje("Buscando producto...");
 
-      window.sennaBarcodeCallback = function(data) {
-        const resultado = document.getElementById("resultado");
+      const local = selectorLocal.value;
+      const callback = "sennaBarcodeCallback";
 
-        resultado.replaceChildren();
+      window[callback] = function (producto) {
+        buscando = false;
 
-        if (data === null) {
-          resultado.textContent =
-            "Producto no encontrado en la base de datos.";
-
-          document.getElementById("estado").textContent =
-            "No se encontró el producto.";
-
+        if (!producto) {
+          mostrarMensaje("No se encontró el producto.", "error");
           return;
         }
 
-        if (data.error) {
-          resultado.textContent = data.error;
-
-          document.getElementById("estado").textContent =
-            "Error al consultar la base de datos.";
-
+        if (producto.error) {
+          mostrarMensaje(producto.error, "error");
           return;
         }
 
-        const titulo = document.createElement("h2");
-        titulo.textContent = data.producto || "Producto";
-        resultado.appendChild(titulo);
-
-        const campos = [
-          ["Código", data.codigo],
-          ["Marca", data.marca],
-          ["Categoría", data.categoria],
-          ["Precio", "$" + Number(data.precio || 0).toLocaleString("es-CL")],
-          ["Descripción", data.descripcion]
-        ];
-
-        campos.forEach(([nombre, valor]) => {
-          const linea = document.createElement("p");
-          const etiqueta = document.createElement("strong");
-
-          etiqueta.textContent = nombre + ": ";
-
-          linea.appendChild(etiqueta);
-          linea.appendChild(
-            document.createTextNode(valor || "-")
-          );
-
-          resultado.appendChild(linea);
-        });
-
-        document.getElementById("estado").textContent =
-          "Producto encontrado correctamente";
+        mostrarProducto(producto);
       };
 
       const script = document.createElement("script");
 
-      script.id = "consultaJSONP";
       script.src =
         API_URL +
         "?action=buscar" +
         "&codigo=" + encodeURIComponent(codigo) +
-        "&callback=sennaBarcodeCallback";
+        "&local=" + encodeURIComponent(local) +
+        "&callback=" + callback +
+        "&t=" + Date.now();
 
-      script.onerror = function() {
-        document.getElementById("estado").textContent =
-          "Error de conexión con Google Sheets.";
-        document.getElementById("resultado").textContent =
-          "No se pudo consultar la base de datos.";
+      script.onerror = function () {
+        buscando = false;
+        mostrarMensaje("Error de conexión. Intenta nuevamente.", "error");
+        script.remove();
+      };
+
+      script.onload = function () {
         script.remove();
       };
 
       document.body.appendChild(script);
+    }
+
+    function mostrarProducto(producto) {
+      document.getElementById("resultado").style.display = "block";
+
+      document.getElementById("nombreProducto").textContent =
+        producto.producto || "";
+
+      document.getElementById("precioProducto").textContent =
+        Number(producto.precio || 0).toLocaleString("es-CL", {
+          style: "currency",
+          currency: "CLP",
+          maximumFractionDigits: 0
+        });
+
+      document.getElementById("skuProducto").textContent =
+        producto.sku || "";
+
+      document.getElementById("barcodeProducto").textContent =
+        producto.codigo || "";
+
+      document.getElementById("marcaProducto").textContent =
+        producto.marca || "";
+
+      document.getElementById("categoriaProducto").textContent =
+        producto.categoria || "";
+
+      document.getElementById("stockLosAndes").textContent =
+        producto.stockLosAndes;
+
+      document.getElementById("stockSantiago").textContent =
+        producto.stockSantiago;
+
+      document.getElementById("stockLocal").textContent =
+        "Stock " + producto.local + ": " + producto.stock;
+
+      document.getElementById("stockTotal").textContent =
+        "Stock total: " + producto.stockTotal;
+
+      mostrarMensaje("Producto encontrado correctamente.", "success");
+    }
+
+    async function iniciarCamara() {
+      if (typeof Html5Qrcode === "undefined") {
+        mostrarMensaje("No se pudo cargar el lector. Revisa tu conexión.", "error");
+        return;
+      }
+
+      try {
+        if (!lector) {
+          lector = new Html5Qrcode("reader");
+        }
+
+        const camaras = await Html5Qrcode.getCameras();
+
+        if (!camaras || camaras.length === 0) {
+          mostrarMensaje("No se encontró una cámara disponible.", "error");
+          return;
+        }
+
+        const camaraTrasera =
+          camaras.find(c => /back|rear|environment|trasera/i.test(c.label)) ||
+          camaras[camaras.length - 1];
+
+        await lector.start(
+          camaraTrasera.id,
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 120 },
+            aspectRatio: 1.5
+          },
+          async (codigoLeido) => {
+            if (buscando) return;
+
+            await detenerCamara();
+            document.getElementById("codigoManual").value = codigoLeido;
+            consultarProducto(codigoLeido);
+          },
+          () => {}
+        );
+
+        mostrarMensaje("Cámara activa. Enfoca el código de barras.");
+      } catch (error) {
+        mostrarMensaje("No se pudo activar la cámara: " + error, "error");
+      }
+    }
+
+    async function detenerCamara() {
+      if (lector && lector.isScanning) {
+        try {
+          await lector.stop();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    // Permitir buscar con la tecla Enter
+    document.getElementById("codigoManual").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        buscarManual();
+      }
+    });
+
+    // Registrar la aplicación para funcionamiento PWA
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("./service-worker.js")
+          .then(() => console.log("SENNA PWA instalada correctamente"))
+          .catch(error => console.log("Error PWA:", error));
+      });
     }
   </script>
 </body>
