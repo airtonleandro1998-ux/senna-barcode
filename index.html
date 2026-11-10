@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#151515">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="SENNA PERFORMANCE">
-  <link rel="manifest" href="./manifest.json">
   <title>SENNA BARCODE</title>
 
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
@@ -29,7 +27,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
     h1 {
@@ -61,7 +59,7 @@
       font-weight: bold;
     }
 
-    select, input {
+    input {
       width: 100%;
       padding: 13px;
       border-radius: 8px;
@@ -89,6 +87,11 @@
       background: #444;
     }
 
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     #reader {
       width: 100%;
       overflow: hidden;
@@ -96,14 +99,14 @@
       margin-bottom: 12px;
     }
 
-    #mensaje {
+    #mensaje, #mensajeAcceso {
       color: #bbb;
       font-size: 14px;
       text-align: center;
       margin-top: 10px;
     }
 
-    #resultado {
+    #resultado, #aplicacion {
       display: none;
     }
 
@@ -158,6 +161,13 @@
       color: #66d98b !important;
     }
 
+    .user-info {
+      color: #ddd;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
     footer {
       text-align: center;
       color: #666;
@@ -172,89 +182,111 @@
 
     <header>
       <h1>SENNA PERFORMANCE</h1>
-      <div class="subtitle">SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO</div>
+      <div class="subtitle">
+        SISTEMA DE CÓDIGOS DE BARRA E INVENTARIO
+      </div>
     </header>
 
-    <section class="panel">
-      <label for="local">LOCAL DE TRABAJO</label>
-
-      <select id="local">
-        <option value="LOS ANDES">LOS ANDES</option>
-        <option value="SANTIAGO">SANTIAGO</option>
-      </select>
-    </section>
-
-    <section class="panel">
-      <label>ESCANEAR CÓDIGO DE BARRAS</label>
-
-      <div id="reader"></div>
-
-      <button id="btnCamara" onclick="iniciarCamara()">
-        ACTIVAR CÁMARA
-      </button>
-
-      <button class="secondary" onclick="detenerCamara()">
-        DETENER CÁMARA
-      </button>
-
-      <div id="mensaje">Selecciona un local y escanea un producto.</div>
-    </section>
-
-    <section class="panel">
-      <label for="codigoManual">BÚSQUEDA MANUAL</label>
-
-      <input
-        type="text"
-        id="codigoManual"
-        placeholder="Ingresa código de barras o SKU"
-        autocomplete="off"
-      >
-
-      <button onclick="buscarManual()">BUSCAR PRODUCTO</button>
-    </section>
-
-    <section class="panel" id="resultado">
-      <div class="subtitle">PRODUCTO ENCONTRADO</div>
-
-      <div class="product-name" id="nombreProducto"></div>
-      <div class="price" id="precioProducto"></div>
-
-      <div class="data-row">
-        <span>SKU</span>
-        <strong id="skuProducto"></strong>
+    <div id="verificando" class="panel">
+      <div id="mensajeAcceso" class="user-info">
+        Verificando sesión...
       </div>
+    </div>
 
-      <div class="data-row">
-        <span>Código de barras</span>
-        <strong id="barcodeProducto"></strong>
-      </div>
+    <main id="aplicacion">
 
-      <div class="data-row">
-        <span>Marca</span>
-        <strong id="marcaProducto"></strong>
-      </div>
+      <section class="panel">
+        <div class="user-info">
+          Sesión iniciada por:
+          <strong id="nombreUsuario"></strong>
+          <br>
+          Local asignado:
+          <strong id="localUsuario"></strong>
+        </div>
 
-      <div class="data-row">
-        <span>Categoría</span>
-        <strong id="categoriaProducto"></strong>
-      </div>
+        <button class="secondary" onclick="salir()">
+          CERRAR SESIÓN
+        </button>
+      </section>
 
-      <div class="stock-title">INVENTARIO</div>
+      <section class="panel">
+        <label>ESCANEAR CÓDIGO DE BARRAS</label>
 
-      <div class="data-row">
-        <span>Stock Los Andes</span>
-        <strong id="stockLosAndes"></strong>
-      </div>
+        <div id="reader"></div>
 
-      <div class="data-row">
-        <span>Stock Santiago</span>
-        <strong id="stockSantiago"></strong>
-      </div>
+        <button id="btnCamara" onclick="iniciarCamara()">
+          ACTIVAR CÁMARA
+        </button>
 
-      <div class="stock-total" id="stockLocal"></div>
+        <button class="secondary" onclick="detenerCamara()">
+          DETENER CÁMARA
+        </button>
 
-      <div class="stock-total" id="stockTotal"></div>
-    </section>
+        <div id="mensaje">
+          Escanea un producto para consultar su inventario.
+        </div>
+      </section>
+
+      <section class="panel">
+        <label for="codigoManual">BÚSQUEDA MANUAL</label>
+
+        <input
+          type="text"
+          id="codigoManual"
+          placeholder="Ingresa código de barras o SKU"
+          autocomplete="off"
+        >
+
+        <button onclick="buscarManual()">
+          BUSCAR PRODUCTO
+        </button>
+      </section>
+
+      <section class="panel" id="resultado">
+        <div class="subtitle">PRODUCTO ENCONTRADO</div>
+
+        <div class="product-name" id="nombreProducto"></div>
+        <div class="price" id="precioProducto"></div>
+
+        <div class="data-row">
+          <span>SKU</span>
+          <strong id="skuProducto"></strong>
+        </div>
+
+        <div class="data-row">
+          <span>Código de barras</span>
+          <strong id="barcodeProducto"></strong>
+        </div>
+
+        <div class="data-row">
+          <span>Marca</span>
+          <strong id="marcaProducto"></strong>
+        </div>
+
+        <div class="data-row">
+          <span>Categoría</span>
+          <strong id="categoriaProducto"></strong>
+        </div>
+
+        <div class="stock-title">
+          INVENTARIO DE AMBAS TIENDAS
+        </div>
+
+        <div class="data-row">
+          <span>Stock Los Andes</span>
+          <strong id="stockLosAndes"></strong>
+        </div>
+
+        <div class="data-row">
+          <span>Stock Santiago</span>
+          <strong id="stockSantiago"></strong>
+        </div>
+
+        <div class="stock-total" id="stockLocal"></div>
+        <div class="stock-total" id="stockTotal"></div>
+      </section>
+
+    </main>
 
     <footer>
       SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO
@@ -263,23 +295,158 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwQ81WPFJW5_V3gqxuzUpE_H-dOStA_Df1ns_EvPMS59zQWnO8KisK197fka5pnGUx2/exec";
+    // =====================================
+    // CONFIGURACION
+    // =====================================
 
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbyG-wz2gMH-bDavIRK0nXT5G69EePNYVcd4d-dAnCPq-VJOU-gZlSscVb2ZTUaxsZEu/exec";
+
+    const LOGIN_URL = API_URL;
+
+    let token = null;
     let lector = null;
     let buscando = false;
 
-    const selectorLocal = document.getElementById("local");
 
-    // Recordar el último local seleccionado
-    const localGuardado = localStorage.getItem("senna_local");
+    // =====================================
+    // RECUPERAR TOKEN
+    // =====================================
 
-    if (localGuardado) {
-      selectorLocal.value = localGuardado;
+    function recuperarToken() {
+      const fragmento = window.location.hash;
+
+      if (fragmento.startsWith("#token=")) {
+        token = decodeURIComponent(
+          fragmento.substring(7)
+        );
+
+        if (token) {
+          sessionStorage.setItem("senna_token", token);
+        }
+
+        window.history.replaceState(
+          null,
+          document.title,
+          window.location.pathname + window.location.search
+        );
+
+      } else {
+        token = sessionStorage.getItem("senna_token");
+      }
     }
 
-    selectorLocal.addEventListener("change", function () {
-      localStorage.setItem("senna_local", this.value);
-    });
+
+    // =====================================
+    // COMUNICACION CON APPS SCRIPT
+    // =====================================
+
+    function llamarAPI(parametros) {
+      return new Promise(function(resolve, reject) {
+
+        const callback =
+          "sennaCallback_" +
+          Date.now() +
+          "_" +
+          Math.floor(Math.random() * 100000);
+
+        const script = document.createElement("script");
+        let terminado = false;
+
+        const temporizador = setTimeout(function() {
+          finalizarError(
+            new Error("El servidor tardó demasiado en responder.")
+          );
+        }, 20000);
+
+        function limpiar() {
+          clearTimeout(temporizador);
+          delete window[callback];
+          script.remove();
+        }
+
+        function finalizarError(error) {
+          if (terminado) return;
+          terminado = true;
+          limpiar();
+          reject(error);
+        }
+
+        window[callback] = function(respuesta) {
+          if (terminado) return;
+          terminado = true;
+          limpiar();
+          resolve(respuesta);
+        };
+
+        const consulta = new URLSearchParams({
+          ...parametros,
+          callback: callback,
+          t: String(Date.now())
+        });
+
+        script.onerror = function() {
+          finalizarError(
+            new Error("No se pudo conectar con el servidor.")
+          );
+        };
+
+        script.src = API_URL + "?" + consulta.toString();
+
+        document.body.appendChild(script);
+      });
+    }
+
+
+    // =====================================
+    // VALIDAR SESION
+    // =====================================
+
+    async function verificarAcceso() {
+      recuperarToken();
+
+      if (!token) {
+        volverLogin();
+        return;
+      }
+
+      try {
+        const respuesta = await llamarAPI({
+          action: "validar",
+          token: token
+        });
+
+        if (!respuesta || !respuesta.ok) {
+          sessionStorage.removeItem("senna_token");
+          volverLogin();
+          return;
+        }
+
+        document.getElementById("nombreUsuario").textContent =
+          respuesta.nombre || "";
+
+        document.getElementById("localUsuario").textContent =
+          respuesta.local || "";
+
+        document.getElementById("verificando").style.display = "none";
+        document.getElementById("aplicacion").style.display = "block";
+
+      } catch (error) {
+        document.getElementById("mensajeAcceso").textContent =
+          "No se pudo validar la sesión: " + error.message;
+      }
+    }
+
+
+    function volverLogin() {
+      sessionStorage.removeItem("senna_token");
+      window.location.href = LOGIN_URL;
+    }
+
+
+    // =====================================
+    // MENSAJES
+    // =====================================
 
     function mostrarMensaje(texto, tipo = "") {
       const mensaje = document.getElementById("mensaje");
@@ -287,8 +454,14 @@
       mensaje.className = tipo;
     }
 
+
+    // =====================================
+    // BUSQUEDA MANUAL
+    // =====================================
+
     function buscarManual() {
-      const codigo = document.getElementById("codigoManual").value.trim();
+      const codigo =
+        document.getElementById("codigoManual").value.trim();
 
       if (!codigo) {
         mostrarMensaje("Ingresa un código o SKU.", "error");
@@ -298,17 +471,26 @@
       consultarProducto(codigo);
     }
 
-    function consultarProducto(codigo) {
+
+    // =====================================
+    // CONSULTAR PRODUCTO
+    // =====================================
+
+    async function consultarProducto(codigo) {
       if (buscando) return;
 
       buscando = true;
+
       document.getElementById("resultado").style.display = "none";
       mostrarMensaje("Buscando producto...");
 
-      const local = selectorLocal.value;
-      const callback = "sennaBarcodeCallback";
+      try {
+        const producto = await llamarAPI({
+          action: "buscar",
+          token: token,
+          codigo: codigo
+        });
 
-      window[callback] = function (producto) {
         buscando = false;
 
         if (!producto) {
@@ -316,36 +498,40 @@
           return;
         }
 
+        if (producto.error === "SESION_INVALIDA") {
+          sessionStorage.removeItem("senna_token");
+          volverLogin();
+          return;
+        }
+
         if (producto.error) {
-          mostrarMensaje(producto.error, "error");
+          mostrarMensaje(
+            producto.mensaje || "Error al consultar el producto.",
+            "error"
+          );
+          return;
+        }
+
+        if (!producto.producto) {
+          mostrarMensaje("No se encontró el producto.", "error");
           return;
         }
 
         mostrarProducto(producto);
-      };
 
-      const script = document.createElement("script");
-
-      script.src =
-        API_URL +
-        "?action=buscar" +
-        "&codigo=" + encodeURIComponent(codigo) +
-        "&local=" + encodeURIComponent(local) +
-        "&callback=" + callback +
-        "&t=" + Date.now();
-
-      script.onerror = function () {
+      } catch (error) {
         buscando = false;
-        mostrarMensaje("Error de conexión. Intenta nuevamente.", "error");
-        script.remove();
-      };
-
-      script.onload = function () {
-        script.remove();
-      };
-
-      document.body.appendChild(script);
+        mostrarMensaje(
+          "Error de conexión: " + error.message,
+          "error"
+        );
+      }
     }
+
+
+    // =====================================
+    // MOSTRAR PRODUCTO
+    // =====================================
 
     function mostrarProducto(producto) {
       document.getElementById("resultado").style.display = "block";
@@ -373,10 +559,10 @@
         producto.categoria || "";
 
       document.getElementById("stockLosAndes").textContent =
-        producto.stockLosAndes;
+        producto.stockLosAndes ?? 0;
 
       document.getElementById("stockSantiago").textContent =
-        producto.stockSantiago;
+        producto.stockSantiago ?? 0;
 
       document.getElementById("stockLocal").textContent =
         "Stock " + producto.local + ": " + producto.stock;
@@ -384,12 +570,23 @@
       document.getElementById("stockTotal").textContent =
         "Stock total: " + producto.stockTotal;
 
-      mostrarMensaje("Producto encontrado correctamente.", "success");
+      mostrarMensaje(
+        "Producto encontrado correctamente.",
+        "success"
+      );
     }
+
+
+    // =====================================
+    // ESCANEAR CODIGO DE BARRAS
+    // =====================================
 
     async function iniciarCamara() {
       if (typeof Html5Qrcode === "undefined") {
-        mostrarMensaje("No se pudo cargar el lector. Revisa tu conexión.", "error");
+        mostrarMensaje(
+          "No se pudo cargar el lector. Revisa tu conexión.",
+          "error"
+        );
         return;
       }
 
@@ -401,13 +598,17 @@
         const camaras = await Html5Qrcode.getCameras();
 
         if (!camaras || camaras.length === 0) {
-          mostrarMensaje("No se encontró una cámara disponible.", "error");
+          mostrarMensaje(
+            "No se encontró una cámara disponible.",
+            "error"
+          );
           return;
         }
 
         const camaraTrasera =
-          camaras.find(c => /back|rear|environment|trasera/i.test(c.label)) ||
-          camaras[camaras.length - 1];
+          camaras.find(c =>
+            /back|rear|environment|trasera/i.test(c.label)
+          ) || camaras[camaras.length - 1];
 
         await lector.start(
           camaraTrasera.id,
@@ -416,21 +617,31 @@
             qrbox: { width: 250, height: 120 },
             aspectRatio: 1.5
           },
-          async (codigoLeido) => {
+          async function(codigoLeido) {
             if (buscando) return;
 
             await detenerCamara();
-            document.getElementById("codigoManual").value = codigoLeido;
+
+            document.getElementById("codigoManual").value =
+              codigoLeido;
+
             consultarProducto(codigoLeido);
           },
-          () => {}
+          function() {}
         );
 
-        mostrarMensaje("Cámara activa. Enfoca el código de barras.");
+        mostrarMensaje(
+          "Cámara activa. Enfoca el código de barras."
+        );
+
       } catch (error) {
-        mostrarMensaje("No se pudo activar la cámara: " + error, "error");
+        mostrarMensaje(
+          "No se pudo activar la cámara: " + error,
+          "error"
+        );
       }
     }
+
 
     async function detenerCamara() {
       if (lector && lector.isScanning) {
@@ -442,22 +653,50 @@
       }
     }
 
-    // Permitir buscar con la tecla Enter
-    document.getElementById("codigoManual").addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        buscarManual();
-      }
-    });
 
-    // Registrar la aplicación para funcionamiento PWA
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .then(() => console.log("SENNA PWA instalada correctamente"))
-          .catch(error => console.log("Error PWA:", error));
-      });
+    // =====================================
+    // CERRAR SESION
+    // =====================================
+
+    async function salir() {
+      await detenerCamara();
+
+      const tokenActual = token;
+
+      sessionStorage.removeItem("senna_token");
+      token = null;
+
+      try {
+        await llamarAPI({
+          action: "cerrar",
+          token: tokenActual
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      volverLogin();
     }
+
+
+    // =====================================
+    // BUSCAR CON ENTER
+    // =====================================
+
+    document.getElementById("codigoManual")
+      .addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          buscarManual();
+        }
+      });
+
+
+    // =====================================
+    // INICIAR
+    // =====================================
+
+    verificarAcceso();
+
   </script>
 </body>
 </html>
