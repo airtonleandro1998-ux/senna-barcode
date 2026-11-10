@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#151515">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>SENNA BARCODE</title>
-
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <style>
@@ -20,15 +19,9 @@
       font-family: Arial, sans-serif;
     }
 
-    .container {
-      max-width: 560px;
-      margin: auto;
-    }
+    .container { max-width: 560px; margin: auto; }
 
-    header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
+    header { text-align: center; margin-bottom: 22px; }
 
     h1 {
       margin: 0;
@@ -37,10 +30,7 @@
       letter-spacing: 2px;
     }
 
-    h2 {
-      font-size: 19px;
-      margin: 0 0 16px;
-    }
+    h2 { font-size: 19px; margin: 0 0 16px; }
 
     .subtitle {
       color: #aaa;
@@ -88,13 +78,8 @@
       margin-bottom: 9px;
     }
 
-    button.secondary {
-      background: #444;
-    }
-
-    button.danger {
-      background: #702323;
-    }
+    button.secondary { background: #444; }
+    button.danger { background: #702323; }
 
     button:disabled {
       opacity: 0.5;
@@ -115,9 +100,7 @@
       margin-top: 10px;
     }
 
-    #resultado, #aplicacion {
-      display: none;
-    }
+    #resultado, #aplicacion { display: none; }
 
     .product-name {
       font-size: 21px;
@@ -141,13 +124,8 @@
       font-size: 14px;
     }
 
-    .data-row span:first-child {
-      color: #aaa;
-    }
-
-    .data-row strong {
-      text-align: right;
-    }
+    .data-row span:first-child { color: #aaa; }
+    .data-row strong { text-align: right; }
 
     .stock-title {
       margin-top: 18px;
@@ -162,13 +140,8 @@
       text-align: center;
     }
 
-    .error {
-      color: #ff6868 !important;
-    }
-
-    .success {
-      color: #66d98b !important;
-    }
+    .error { color: #ff6868 !important; }
+    .success { color: #66d98b !important; }
 
     .user-info {
       color: #ddd;
@@ -209,10 +182,7 @@
       gap: 10px;
     }
 
-    .cart-grid input,
-    .cart-grid select {
-      margin-bottom: 7px;
-    }
+    .cart-grid input, .cart-grid select { margin-bottom: 7px; }
 
     .quantity-controls {
       display: flex;
@@ -279,12 +249,10 @@
       font-size: 14px;
     }
 
-    .payment-option {
-      margin-top: 8px;
-    }
-
-    .hidden {
-      display: none !important;
+    #mensajeVenta {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 12px;
     }
 
     footer {
@@ -314,7 +282,6 @@
 
   <main id="aplicacion">
 
-    <!-- SESIÓN -->
     <section class="panel">
       <div class="user-info">
         Sesión iniciada por:
@@ -323,89 +290,38 @@
         Local asignado:
         <strong id="localUsuario"></strong>
       </div>
-
-      <button class="secondary" onclick="salir()">
-        CERRAR SESIÓN
-      </button>
+      <button class="secondary" onclick="salir()">CERRAR SESIÓN</button>
     </section>
 
-    <!-- ESCÁNER -->
     <section class="panel">
       <h2>Consultar productos</h2>
-
       <label>ESCANEAR CÓDIGO DE BARRAS</label>
       <div id="reader"></div>
-
-      <button id="btnCamara" onclick="iniciarCamara()">
-        ACTIVAR CÁMARA
-      </button>
-
-      <button class="secondary" onclick="detenerCamara()">
-        DETENER CÁMARA
-      </button>
-
-      <div id="mensaje">
-        Escanea un producto para consultar su inventario.
-      </div>
+      <button onclick="iniciarCamara()">ACTIVAR CÁMARA</button>
+      <button class="secondary" onclick="detenerCamara()">DETENER CÁMARA</button>
+      <div id="mensaje">Escanea un producto para consultar su inventario.</div>
     </section>
 
-    <!-- BÚSQUEDA MANUAL -->
     <section class="panel">
       <label for="codigoManual">BÚSQUEDA MANUAL</label>
-
-      <input
-        type="text"
-        id="codigoManual"
-        placeholder="Código de barras o SKU"
-        autocomplete="off"
-      >
-
-      <button onclick="buscarManual()">
-        BUSCAR PRODUCTO
-      </button>
+      <input type="text" id="codigoManual"
+        placeholder="Código de barras o SKU" autocomplete="off">
+      <button onclick="buscarManual()">BUSCAR PRODUCTO</button>
     </section>
 
-    <!-- RESULTADO -->
     <section class="panel" id="resultado">
       <div class="subtitle">PRODUCTO ENCONTRADO</div>
-
       <div class="product-name" id="nombreProducto"></div>
       <div class="price" id="precioProducto"></div>
 
-      <div class="data-row">
-        <span>SKU</span>
-        <strong id="skuProducto"></strong>
-      </div>
+      <div class="data-row"><span>SKU</span><strong id="skuProducto"></strong></div>
+      <div class="data-row"><span>Código de barras</span><strong id="barcodeProducto"></strong></div>
+      <div class="data-row"><span>Marca</span><strong id="marcaProducto"></strong></div>
+      <div class="data-row"><span>Categoría</span><strong id="categoriaProducto"></strong></div>
 
-      <div class="data-row">
-        <span>Código de barras</span>
-        <strong id="barcodeProducto"></strong>
-      </div>
-
-      <div class="data-row">
-        <span>Marca</span>
-        <strong id="marcaProducto"></strong>
-      </div>
-
-      <div class="data-row">
-        <span>Categoría</span>
-        <strong id="categoriaProducto"></strong>
-      </div>
-
-      <div class="stock-title">
-        INVENTARIO DE AMBAS TIENDAS
-      </div>
-
-      <div class="data-row">
-        <span>Stock Los Andes</span>
-        <strong id="stockLosAndes"></strong>
-      </div>
-
-      <div class="data-row">
-        <span>Stock Santiago</span>
-        <strong id="stockSantiago"></strong>
-      </div>
-
+      <div class="stock-title">INVENTARIO DE AMBAS TIENDAS</div>
+      <div class="data-row"><span>Stock Los Andes</span><strong id="stockLosAndes"></strong></div>
+      <div class="data-row"><span>Stock Santiago</span><strong id="stockSantiago"></strong></div>
       <div class="stock-total" id="stockLocal"></div>
       <div class="stock-total" id="stockTotal"></div>
 
@@ -414,18 +330,11 @@
       </button>
     </section>
 
-    <!-- CARRITO -->
-    <section class="panel" id="panelCarrito">
+    <section class="panel">
       <h2>Carrito de ventas</h2>
-
-      <div class="section-title">
-        PRODUCTOS AGREGADOS
-      </div>
-
+      <div class="section-title">PRODUCTOS AGREGADOS</div>
       <div id="listaCarrito">
-        <div class="empty-cart">
-          Todavía no hay productos en el carrito.
-        </div>
+        <div class="empty-cart">Todavía no hay productos en el carrito.</div>
       </div>
 
       <div class="total-box">
@@ -433,12 +342,10 @@
           <span>Subtotal original</span>
           <strong id="subtotalOriginal">$0</strong>
         </div>
-
         <div class="total-line">
           <span>Descuentos</span>
           <strong id="descuentoTotal">$0</strong>
         </div>
-
         <div class="total-line total-final">
           <span>TOTAL</span>
           <strong id="totalVenta">$0</strong>
@@ -446,12 +353,9 @@
       </div>
     </section>
 
-    <!-- PAGO -->
-    <section class="panel" id="panelPago">
+    <section class="panel">
       <h2>Medio de pago</h2>
-
       <label for="medioPago">Seleccionar medio de pago</label>
-
       <select id="medioPago">
         <option value="">Seleccionar...</option>
         <option value="EFECTIVO">Efectivo</option>
@@ -463,11 +367,7 @@
       <button id="btnConfirmar" onclick="confirmarVenta()">
         CONFIRMAR VENTA
       </button>
-
-      <button class="secondary" onclick="vaciarCarrito()">
-        VACIAR CARRITO
-      </button>
-
+      <button class="secondary" onclick="vaciarCarrito()">VACIAR CARRITO</button>
       <div id="mensajeVenta"></div>
     </section>
 
@@ -476,7 +376,6 @@
   <footer>
     SENNA PERFORMANCE · CONTROL CENTRAL DE INVENTARIO
   </footer>
-
 </div>
 
 <script>
@@ -485,7 +384,7 @@
  ************************************************************/
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyG-wz2gMH-bDavIRK0nXT5G69EePNYVcd4d-dAnCPq-VJOU-gZlSscVb2ZTUaxsZEu/exec";
+  "https://script.google.com/macros/s/AKfycbxeyjgGrmDCknfVzFciuFjXu9LjtS_21XW4citO2eghtBy_Mw8u9pLfDfPHIhXo3nFh/exec";
 
 const LOGIN_URL = API_URL;
 
@@ -496,18 +395,14 @@ let productoActual = null;
 let carrito = [];
 let procesandoVenta = false;
 
-
 /************************************************************
  * UTILIDADES
  ************************************************************/
 
 function escaparHTML(valor) {
   return String(valor ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+    '"': "&quot;", "'": "&#39;"
   })[c]);
 }
 
@@ -531,9 +426,8 @@ function mostrarMensajeVenta(texto, tipo = "") {
   mensaje.className = tipo;
 }
 
-
 /************************************************************
- * RECUPERAR TOKEN
+ * TOKEN
  ************************************************************/
 
 function recuperarToken() {
@@ -542,24 +436,19 @@ function recuperarToken() {
   if (fragmento.startsWith("#token=")) {
     token = decodeURIComponent(fragmento.substring(7));
 
-    if (token) {
-      sessionStorage.setItem("senna_token", token);
-    }
+    if (token) sessionStorage.setItem("senna_token", token);
 
     window.history.replaceState(
-      null,
-      document.title,
+      null, document.title,
       window.location.pathname + window.location.search
     );
-
   } else {
     token = sessionStorage.getItem("senna_token");
   }
 }
 
-
 /************************************************************
- * COMUNICACIÓN CON APPS SCRIPT
+ * API JSONP
  ************************************************************/
 
 function llamarAPI(parametros) {
@@ -571,10 +460,8 @@ function llamarAPI(parametros) {
     const script = document.createElement("script");
     let terminado = false;
 
-    const temporizador = setTimeout(function() {
-      finalizarError(
-        new Error("El servidor tardó demasiado en responder.")
-      );
+    const temporizador = setTimeout(() => {
+      finalizarError(new Error("El servidor tardó demasiado en responder."));
     }, 30000);
 
     function limpiar() {
@@ -603,21 +490,17 @@ function llamarAPI(parametros) {
       t: String(Date.now())
     });
 
-    script.onerror = function() {
-      finalizarError(
-        new Error("No se pudo conectar con el servidor.")
-      );
-    };
+    script.onerror = () => finalizarError(
+      new Error("No se pudo conectar con el servidor.")
+    );
 
     script.src = API_URL + "?" + consulta.toString();
-
     document.body.appendChild(script);
   });
 }
 
-
 /************************************************************
- * VALIDAR SESIÓN
+ * SESIÓN
  ************************************************************/
 
 async function verificarAcceso() {
@@ -659,9 +542,8 @@ function volverLogin() {
   window.location.href = LOGIN_URL;
 }
 
-
 /************************************************************
- * BÚSQUEDA MANUAL
+ * BÚSQUEDA
  ************************************************************/
 
 function buscarManual() {
@@ -675,17 +557,11 @@ function buscarManual() {
   consultarProducto(codigo);
 }
 
-
-/************************************************************
- * CONSULTAR PRODUCTO
- ************************************************************/
-
 async function consultarProducto(codigo) {
   if (buscando) return;
 
   buscando = true;
   productoActual = null;
-
   document.getElementById("resultado").style.display = "none";
   mostrarMensaje("Buscando producto...");
 
@@ -709,10 +585,7 @@ async function consultarProducto(codigo) {
     }
 
     if (producto.error) {
-      mostrarMensaje(
-        producto.mensaje || "Error al consultar el producto.",
-        "error"
-      );
+      mostrarMensaje(producto.mensaje || "Error al consultar.", "error");
       return;
     }
 
@@ -729,11 +602,6 @@ async function consultarProducto(codigo) {
   }
 }
 
-
-/************************************************************
- * MOSTRAR PRODUCTO
- ************************************************************/
-
 function mostrarProducto(producto) {
   productoActual = {
     sku: String(producto.sku),
@@ -746,46 +614,26 @@ function mostrarProducto(producto) {
   };
 
   document.getElementById("resultado").style.display = "block";
-
-  document.getElementById("nombreProducto").textContent =
-    producto.producto || "";
-
-  document.getElementById("precioProducto").textContent =
-    dinero(producto.precio);
-
-  document.getElementById("skuProducto").textContent =
-    producto.sku || "";
-
-  document.getElementById("barcodeProducto").textContent =
-    producto.codigo || "";
-
-  document.getElementById("marcaProducto").textContent =
-    producto.marca || "";
-
-  document.getElementById("categoriaProducto").textContent =
-    producto.categoria || "";
-
-  document.getElementById("stockLosAndes").textContent =
-    producto.stockLosAndes ?? 0;
-
-  document.getElementById("stockSantiago").textContent =
-    producto.stockSantiago ?? 0;
-
+  document.getElementById("nombreProducto").textContent = producto.producto || "";
+  document.getElementById("precioProducto").textContent = dinero(producto.precio);
+  document.getElementById("skuProducto").textContent = producto.sku || "";
+  document.getElementById("barcodeProducto").textContent = producto.codigo || "";
+  document.getElementById("marcaProducto").textContent = producto.marca || "";
+  document.getElementById("categoriaProducto").textContent = producto.categoria || "";
+  document.getElementById("stockLosAndes").textContent = producto.stockLosAndes ?? 0;
+  document.getElementById("stockSantiago").textContent = producto.stockSantiago ?? 0;
   document.getElementById("stockLocal").textContent =
     "Stock " + producto.local + ": " + producto.stock;
-
   document.getElementById("stockTotal").textContent =
     "Stock total: " + producto.stockTotal;
-
   document.getElementById("btnAgregar").disabled =
     Number(producto.stock) <= 0;
 
   mostrarMensaje("Producto encontrado correctamente.", "success");
 }
 
-
 /************************************************************
- * CARRITO: AGREGAR PRODUCTO
+ * CARRITO
  ************************************************************/
 
 function agregarAlCarrito() {
@@ -824,11 +672,6 @@ function agregarAlCarrito() {
   mostrarMensaje("Producto agregado al carrito.", "success");
 }
 
-
-/************************************************************
- * CÁLCULOS DEL CARRITO
- ************************************************************/
-
 function calcularDescuento(item) {
   const precio = Number(item.precio);
   const valor = Number(item.valorDescuento || 0);
@@ -850,26 +693,14 @@ function calcularTotales() {
   let total = 0;
 
   carrito.forEach(item => {
-    const precio = Number(item.precio);
-    const cantidad = Number(item.cantidad);
     const descuento = calcularDescuento(item);
-
-    subtotal += precio * cantidad;
-    descuentos += descuento * cantidad;
-    total += (precio - descuento) * cantidad;
+    subtotal += item.precio * item.cantidad;
+    descuentos += descuento * item.cantidad;
+    total += (item.precio - descuento) * item.cantidad;
   });
 
-  return {
-    subtotal: subtotal,
-    descuentos: descuentos,
-    total: total
-  };
+  return { subtotal, descuentos, total };
 }
-
-
-/************************************************************
- * CARRITO: DIBUJAR
- ************************************************************/
 
 function renderizarCarrito() {
   const contenedor = document.getElementById("listaCarrito");
@@ -881,19 +712,16 @@ function renderizarCarrito() {
     contenedor.innerHTML = carrito.map((item, indice) => {
       const descuento = calcularDescuento(item);
       const precioFinal = item.precio - descuento;
-      const subtotal = precioFinal * item.cantidad;
 
       return `
         <div class="cart-item" data-index="${indice}">
           <div class="cart-name">${escaparHTML(item.producto)}</div>
-
           <div class="cart-meta">
             SKU: ${escaparHTML(item.sku)} ·
             Precio original: ${dinero(item.precio)}
           </div>
 
           <label>Cantidad</label>
-
           <div class="quantity-controls">
             <button type="button" data-action="menos">−</button>
             <span class="quantity-value">${item.cantidad}</span>
@@ -904,31 +732,17 @@ function renderizarCarrito() {
             <div>
               <label>Tipo de descuento</label>
               <select data-field="tipoDescuento">
-                <option value="NINGUNO"
-                  ${item.tipoDescuento === "NINGUNO" ? "selected" : ""}>
-                  Sin descuento
-                </option>
-                <option value="PORCENTAJE"
-                  ${item.tipoDescuento === "PORCENTAJE" ? "selected" : ""}>
-                  Porcentaje (%)
-                </option>
-                <option value="PESOS"
-                  ${item.tipoDescuento === "PESOS" ? "selected" : ""}>
-                  Pesos ($)
-                </option>
+                <option value="NINGUNO" ${item.tipoDescuento === "NINGUNO" ? "selected" : ""}>Sin descuento</option>
+                <option value="PORCENTAJE" ${item.tipoDescuento === "PORCENTAJE" ? "selected" : ""}>Porcentaje (%)</option>
+                <option value="PESOS" ${item.tipoDescuento === "PESOS" ? "selected" : ""}>Pesos ($)</option>
               </select>
             </div>
-
             <div>
               <label>Descuento</label>
-              <input
-                type="number"
-                min="0"
-                step="1"
+              <input type="number" min="0" step="1"
                 data-field="valorDescuento"
                 value="${item.valorDescuento}"
-                ${item.tipoDescuento === "NINGUNO" ? "disabled" : ""}
-              >
+                ${item.tipoDescuento === "NINGUNO" ? "disabled" : ""}>
             </div>
           </div>
 
@@ -936,22 +750,15 @@ function renderizarCarrito() {
             <span>Descuento unitario</span>
             <strong>${dinero(descuento)}</strong>
           </div>
-
           <div class="data-row">
             <span>Precio final unitario</span>
             <strong>${dinero(precioFinal)}</strong>
           </div>
-
           <div class="item-total">
-            Total: ${dinero(subtotal)}
+            Total: ${dinero(precioFinal * item.cantidad)}
           </div>
-
-          <button
-            type="button"
-            class="remove-button"
-            data-action="eliminar">
-            ELIMINAR PRODUCTO
-          </button>
+          <button type="button" class="remove-button"
+            data-action="eliminar">ELIMINAR PRODUCTO</button>
         </div>
       `;
     }).join("");
@@ -959,115 +766,82 @@ function renderizarCarrito() {
 
   const totales = calcularTotales();
 
-  document.getElementById("subtotalOriginal").textContent =
-    dinero(totales.subtotal);
-
-  document.getElementById("descuentoTotal").textContent =
-    dinero(totales.descuentos);
-
-  document.getElementById("totalVenta").textContent =
-    dinero(totales.total);
+  document.getElementById("subtotalOriginal").textContent = dinero(totales.subtotal);
+  document.getElementById("descuentoTotal").textContent = dinero(totales.descuentos);
+  document.getElementById("totalVenta").textContent = dinero(totales.total);
 
   document.getElementById("btnConfirmar").disabled =
     carrito.length === 0 || procesandoVenta;
 }
 
+document.getElementById("listaCarrito").addEventListener("click", function(event) {
+  const boton = event.target.closest("button[data-action]");
+  if (!boton) return;
 
-/************************************************************
- * CARRITO: CONTROLES
- ************************************************************/
+  const tarjeta = boton.closest(".cart-item");
+  const indice = Number(tarjeta.dataset.index);
 
-document.getElementById("listaCarrito")
-  .addEventListener("click", function(event) {
-    const boton = event.target.closest("button[data-action]");
-    if (!boton) return;
+  if (!Number.isInteger(indice) || !carrito[indice]) return;
 
-    const tarjeta = boton.closest(".cart-item");
-    const indice = Number(tarjeta.dataset.index);
+  const item = carrito[indice];
 
-    if (!Number.isInteger(indice) || !carrito[indice]) return;
-
-    const item = carrito[indice];
-    const accion = boton.dataset.action;
-
-    if (accion === "mas") {
-      if (item.cantidad >= item.stock) {
-        mostrarMensajeVenta("No hay más stock disponible.", "error");
-        return;
-      }
-      item.cantidad++;
-    }
-
-    if (accion === "menos") {
-      item.cantidad--;
-      if (item.cantidad <= 0) {
-        carrito.splice(indice, 1);
-      }
-    }
-
-    if (accion === "eliminar") {
-      carrito.splice(indice, 1);
-    }
-
-    renderizarCarrito();
-  });
-
-
-document.getElementById("listaCarrito")
-  .addEventListener("change", function(event) {
-    const campo = event.target.dataset.field;
-    if (!campo) return;
-
-    const tarjeta = event.target.closest(".cart-item");
-    const indice = Number(tarjeta.dataset.index);
-
-    if (!Number.isInteger(indice) || !carrito[indice]) return;
-
-    const item = carrito[indice];
-
-    if (campo === "tipoDescuento") {
-      item.tipoDescuento = event.target.value;
-
-      if (item.tipoDescuento === "NINGUNO") {
-        item.valorDescuento = 0;
-      }
-
-      renderizarCarrito();
+  if (boton.dataset.action === "mas") {
+    if (item.cantidad >= item.stock) {
+      mostrarMensajeVenta("No hay más stock disponible.", "error");
       return;
     }
+    item.cantidad++;
+  }
 
-    if (campo === "valorDescuento") {
-      let valor = Number(event.target.value);
+  if (boton.dataset.action === "menos") {
+    item.cantidad--;
+    if (item.cantidad <= 0) carrito.splice(indice, 1);
+  }
 
-      if (!Number.isFinite(valor) || valor < 0) valor = 0;
+  if (boton.dataset.action === "eliminar") {
+    carrito.splice(indice, 1);
+  }
 
-      if (item.tipoDescuento === "PORCENTAJE") {
-        valor = Math.min(100, valor);
-      }
+  renderizarCarrito();
+});
 
-      if (item.tipoDescuento === "PESOS") {
-        valor = Math.min(item.precio, valor);
-      }
+document.getElementById("listaCarrito").addEventListener("change", function(event) {
+  const campo = event.target.dataset.field;
+  if (!campo) return;
 
-      item.valorDescuento = valor;
-      renderizarCarrito();
-    }
-  });
+  const tarjeta = event.target.closest(".cart-item");
+  const indice = Number(tarjeta.dataset.index);
 
+  if (!Number.isInteger(indice) || !carrito[indice]) return;
 
-/************************************************************
- * VACIAR CARRITO
- ************************************************************/
+  const item = carrito[indice];
+
+  if (campo === "tipoDescuento") {
+    item.tipoDescuento = event.target.value;
+    if (item.tipoDescuento === "NINGUNO") item.valorDescuento = 0;
+    renderizarCarrito();
+    return;
+  }
+
+  if (campo === "valorDescuento") {
+    let valor = Number(event.target.value);
+    if (!Number.isFinite(valor) || valor < 0) valor = 0;
+
+    if (item.tipoDescuento === "PORCENTAJE") valor = Math.min(100, valor);
+    if (item.tipoDescuento === "PESOS") valor = Math.min(item.precio, valor);
+
+    item.valorDescuento = valor;
+    renderizarCarrito();
+  }
+});
 
 function vaciarCarrito() {
   if (procesandoVenta) return;
-
   carrito = [];
   document.getElementById("medioPago").value = "";
   mostrarMensajeVenta("");
   renderizarCarrito();
 }
-
 
 /************************************************************
  * CONFIRMAR VENTA
@@ -1091,7 +865,7 @@ async function confirmarVenta() {
   const totales = calcularTotales();
 
   if (totales.total <= 0) {
-    mostrarMensajeVenta("El total de la venta debe ser mayor a cero.", "error");
+    mostrarMensajeVenta("El total debe ser mayor a cero.", "error");
     return;
   }
 
@@ -1136,7 +910,6 @@ async function confirmarVenta() {
         respuesta?.mensaje || "No se pudo registrar la venta.",
         "error"
       );
-
       return;
     }
 
@@ -1144,13 +917,11 @@ async function confirmarVenta() {
     productoActual = null;
     document.getElementById("medioPago").value = "";
     document.getElementById("resultado").style.display = "none";
-
     renderizarCarrito();
 
     mostrarMensajeVenta(
       "Venta registrada correctamente. Folio: " +
-      respuesta.idVenta +
-      " · Total: " + dinero(respuesta.total),
+      respuesta.idVenta + " · Total: " + dinero(respuesta.total),
       "success"
     );
 
@@ -1167,7 +938,6 @@ async function confirmarVenta() {
   }
 }
 
-
 /************************************************************
  * CÁMARA
  ************************************************************/
@@ -1179,9 +949,7 @@ async function iniciarCamara() {
   }
 
   try {
-    if (!lector) {
-      lector = new Html5Qrcode("reader");
-    }
+    if (!lector) lector = new Html5Qrcode("reader");
 
     const camaras = await Html5Qrcode.getCameras();
 
@@ -1191,22 +959,15 @@ async function iniciarCamara() {
     }
 
     const camaraTrasera =
-      camaras.find(c =>
-        /back|rear|environment|trasera/i.test(c.label)
-      ) || camaras[camaras.length - 1];
+      camaras.find(c => /back|rear|environment|trasera/i.test(c.label))
+      || camaras[camaras.length - 1];
 
     await lector.start(
       camaraTrasera.id,
-      {
-        fps: 10,
-        qrbox: { width: 250, height: 120 },
-        aspectRatio: 1.5
-      },
+      { fps: 10, qrbox: { width: 250, height: 120 }, aspectRatio: 1.5 },
       async function(codigoLeido) {
         if (buscando) return;
-
         await detenerCamara();
-
         document.getElementById("codigoManual").value = codigoLeido;
         consultarProducto(codigoLeido);
       },
@@ -1230,7 +991,6 @@ async function detenerCamara() {
   }
 }
 
-
 /************************************************************
  * CERRAR SESIÓN
  ************************************************************/
@@ -1239,15 +999,11 @@ async function salir() {
   await detenerCamara();
 
   const tokenActual = token;
-
   sessionStorage.removeItem("senna_token");
   token = null;
 
   try {
-    await llamarAPI({
-      action: "cerrar",
-      token: tokenActual
-    });
+    await llamarAPI({ action: "cerrar", token: tokenActual });
   } catch (error) {
     console.log(error);
   }
@@ -1255,26 +1011,16 @@ async function salir() {
   volverLogin();
 }
 
-
 /************************************************************
- * ENTER EN BÚSQUEDA
+ * INICIO
  ************************************************************/
 
-document.getElementById("codigoManual")
-  .addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-      buscarManual();
-    }
-  });
-
-
-/************************************************************
- * INICIAR
- ************************************************************/
+document.getElementById("codigoManual").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") buscarManual();
+});
 
 renderizarCarrito();
 verificarAcceso();
-
 </script>
 </body>
 </html>
