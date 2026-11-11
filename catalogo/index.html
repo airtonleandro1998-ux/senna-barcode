@@ -10,7 +10,7 @@
 <div class="overlay" id="overlay"><aside class="drawer"><div class="drawer-head"><h2>Tu pedido</h2><button class="close" id="close">×</button></div><div id="items"></div><div class="total"><span>Total estimado</span><span id="total">$0</span></div><button class="primary send" id="send">ENVIAR PEDIDO POR WHATSAPP</button><p class="note">El pedido se enviará como mensaje para confirmar disponibilidad, despacho y forma de pago. No se realiza un cobro en esta página.</p></aside></div>
 <script>
 const WA='56986427075';let products=[],category='Todos',cart={};const money=n=>'$'+Math.round(n).toLocaleString('es-CL');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function init(){try{products=await(await fetch('./products.json')).json();renderCats();render()}catch(e){document.getElementById('products').innerHTML='<div class="empty">No se pudo cargar el catálogo.</div>'}}
+async function init(){try{products=await(await fetch('./products.json?v=20261111')).json();renderCats();render()}catch(e){document.getElementById('products').innerHTML='<div class="empty">No se pudo cargar el catálogo.</div>'}}
 function renderCats(){let a=['Todos',...new Set(products.map(x=>x.category))];document.getElementById('cats').innerHTML=a.map(x=>`<button class="chip ${x===category?'active':''}" data-cat="${esc(x)}">${esc(x)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{category=b.dataset.cat;renderCats();render()})}
 function render(){
  let q=document.getElementById('search').value.trim().toLowerCase();
@@ -22,7 +22,7 @@ function render(){
  document.getElementById('resultCount').textContent=filtered.length+' variantes · '+cards.length+' productos';
  document.getElementById('products').innerHTML=cards.length?cards.map((variants,i)=>{
   let p=variants[0], opts=variants.map(v=>'<option value="'+esc(v.sku)+'">'+esc(v.variant||v.sku)+' · '+esc(v.sku)+'</option>').join('');
-  let photo=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">':'';
+  let photo=p.image?'<img src="'+esc(p.image)+'?v=20261111" alt="'+esc(p.name)+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">':'';
   return '<article class="card"><div class="photo">'+photo+'<div class="placeholder" style="'+(p.image?'display:none':'')+'">FOTOGRAFÍA</div></div><div class="body"><div class="sku">'+esc(p.model||p.sku)+'</div><h3>'+esc(p.name.replace(/\s+(Negro|Rojo|Azul|Gris|Beige)(\s*\(Par\))?$/i,''))+'</h3>'+(variants.length>1?'<select class="variant-select" data-variant="'+i+'">'+opts+'</select>':'<div class="sku" style="margin:0 0 12px">'+esc(p.variant||p.sku)+'</div>')+'<div class="price" data-price="'+i+'">'+money(p.price)+' <small>IVA incl.</small></div><button class="add" data-add-group="'+i+'">AGREGAR AL PEDIDO</button></div></article>';
  }).join(''):'<div class="empty">No encontramos productos con esa búsqueda.</div>';
  document.querySelectorAll('[data-add-group]').forEach(b=>b.onclick=()=>{let i=Number(b.dataset.addGroup),sel=document.querySelector('[data-variant="'+i+'"]'),sku=sel?sel.value:cards[i][0].sku;cart[sku]=(cart[sku]||0)+1;updateCart();document.getElementById('overlay').classList.add('open')});
