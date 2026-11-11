@@ -1,0 +1,337 @@
+[
+  {
+    "sku": "SP-IL001",
+    "name": "Foco LED H4 120W 6000K",
+    "category": "Iluminación",
+    "price": 24990
+  },
+  {
+    "sku": "SP-IL002",
+    "name": "Foco LED H7 100W 6000K",
+    "category": "Iluminación",
+    "price": 22990
+  },
+  {
+    "sku": "SP-IL003",
+    "name": "Barra LED curva 22 pulgadas 120W",
+    "category": "Iluminación",
+    "price": 89990
+  },
+  {
+    "sku": "SP-IL004",
+    "name": "Neblinero LED 3.0 pulgadas 2 colores",
+    "category": "Iluminación",
+    "price": 39990
+  },
+  {
+    "sku": "SP-IL005",
+    "name": "Foco LED T10 CANBUS",
+    "category": "Iluminación",
+    "price": 5990
+  },
+  {
+    "sku": "SP-IL006",
+    "name": "Foco LED 1156 CANBUS",
+    "category": "Iluminación",
+    "price": 5990
+  },
+  {
+    "sku": "SP-IN001",
+    "name": "Fundas de asientos premium",
+    "category": "Interior",
+    "price": 59990
+  },
+  {
+    "sku": "SP-IN002",
+    "name": "Cubre volante de cuero",
+    "category": "Interior",
+    "price": 14990
+  },
+  {
+    "sku": "SP-IN003",
+    "name": "Pisos de goma universal",
+    "category": "Interior",
+    "price": 29990
+  },
+  {
+    "sku": "SP-IN004",
+    "name": "Apoyabrazos universal",
+    "category": "Interior",
+    "price": 24990
+  },
+  {
+    "sku": "SP0001",
+    "name": "Butaca Bride HKS Anniversario (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 379990,
+    "barcode": "SP0001",
+    "image": "SP0001.jpg",
+    "model": "BRIDE HKS ANNIVERSARIO",
+    "variant": "Negro"
+  },
+  {
+    "sku": "SP0002",
+    "name": "Butaca Bride HKS Anniversario (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 379990,
+    "barcode": "SP0002",
+    "image": "SP0001.jpg",
+    "model": "BRIDE HKS ANNIVERSARIO",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0003",
+    "name": "Butaca Bride Illest (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 449990,
+    "barcode": "SP0003",
+    "image": "SP0003.jpg",
+    "model": "BRIDE ILLEST",
+    "variant": "Negro"
+  },
+  {
+    "sku": "SP0004",
+    "name": "Butaca Bride Illest (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 449990,
+    "barcode": "SP0004",
+    "image": "SP0003.jpg",
+    "model": "BRIDE ILLEST",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0005",
+    "name": "Butaca Bride Stradia",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 339990,
+    "barcode": "SP0005",
+    "image": "SP0005.jpg",
+    "model": "BRIDE STRADIA",
+    "variant": "Negro"
+  },
+  {
+    "sku": "SP0006",
+    "name": "Butaca Bride Stradia",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 339990,
+    "barcode": "SP0006",
+    "image": "SP0005.jpg",
+    "model": "BRIDE STRADIA",
+    "variant": "Azul"
+  },
+  {
+    "sku": "SP0007",
+    "name": "Butaca Bride Stradia",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 339990,
+    "barcode": "SP0007",
+    "image": "SP0005.jpg",
+    "model": "BRIDE STRADIA",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0008",
+    "name": "Butaca Bride Greddy (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 459990,
+    "barcode": "SP0008",
+    "image": "SP0008.jpg",
+    "model": "Butaca Bride Greddy (Par)",
+    "variant": null
+  },
+  {
+    "sku": "SP0009",
+    "name": "Butaca Bride Low Max (Par) Negra",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 449990,
+    "barcode": "SP0009",
+    "image": "SP0009.jpg",
+    "model": "Butaca Bride Low Max (Par) Negra",
+    "variant": null
+  },
+  {
+    "sku": "SP0010",
+    "name": "Butaca Bride Cobra (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 369990,
+    "barcode": "SP0010",
+    "image": "SP0011.jpg",
+    "model": "BRIDE COBRA",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0011",
+    "name": "Butaca Bride Cobra (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 369990,
+    "barcode": "SP0011",
+    "image": "SP0011.jpg",
+    "model": "BRIDE COBRA",
+    "variant": "Azul"
+  },
+  {
+    "sku": "SP0012",
+    "name": "Butaca Bride Cobra (Par)",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 369990,
+    "barcode": "SP0012",
+    "image": "SP0011.jpg",
+    "model": "BRIDE COBRA",
+    "variant": "Negro"
+  },
+  {
+    "sku": "SP0013",
+    "name": "Butacs Bride SR Rojo",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 379990,
+    "barcode": "SP0013",
+    "image": "SP0013.jpg",
+    "model": "Butacs Bride SR Rojo",
+    "variant": null
+  },
+  {
+    "sku": "SP0014",
+    "name": "Butacs Bride SR Gamuza",
+    "brand": "Bride",
+    "category": "Butacas Reclinables",
+    "price": 379990,
+    "barcode": "SP0014",
+    "image": "SP0014.jpg",
+    "model": "Butacs Bride SR Gamuza",
+    "variant": null
+  },
+  {
+    "sku": "SP0015",
+    "name": "Butaca Bride Sakura Fija (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 219990,
+    "barcode": "SP0015",
+    "image": "SP0015.jpg",
+    "model": "Butaca Bride Sakura Fija (Unidad)",
+    "variant": null
+  },
+  {
+    "sku": "SP0016",
+    "name": "Butaca Bride fija Silver (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 229990,
+    "barcode": "SP0016",
+    "image": "SP0016.jpg",
+    "model": "Butaca Bride fija Silver (Unidad)",
+    "variant": null
+  },
+  {
+    "sku": "SP0017",
+    "name": "Butaca Bride Low Max Fija (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 219990,
+    "barcode": "SP0017",
+    "image": "SP0017.jpg",
+    "model": "BRIDE LOW MAX FIJA",
+    "variant": "Negro"
+  },
+  {
+    "sku": "SP0018",
+    "name": "Butaca Bride Low Max Fija (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 219990,
+    "barcode": "SP0018",
+    "image": "SP0017.jpg",
+    "model": "BRIDE LOW MAX FIJA",
+    "variant": "Azul"
+  },
+  {
+    "sku": "SP0019",
+    "name": "Butaca Bride Low Max Fija (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 219990,
+    "barcode": "SP0019",
+    "image": "SP0017.jpg",
+    "model": "BRIDE LOW MAX FIJA",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0020",
+    "name": "Butaca Bride Purple (Unidad)",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 229990,
+    "barcode": "SP0020",
+    "image": "SP0020.jpg",
+    "model": "Butaca Bride Purple (Unidad)",
+    "variant": null
+  },
+  {
+    "sku": "SP0021",
+    "name": "Butaca Bride Bucket",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 249990,
+    "barcode": "SP0021",
+    "image": "SP0021.jpg",
+    "model": "BRIDE BUCKET",
+    "variant": "Rojo"
+  },
+  {
+    "sku": "SP0022",
+    "name": "Butaca Bride Bucket",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 249990,
+    "barcode": "SP0022",
+    "image": "SP0021.jpg",
+    "model": "BRIDE BUCKET",
+    "variant": "Gris"
+  },
+  {
+    "sku": "SP0023",
+    "name": "Butaca Bride Bucket",
+    "brand": "Bride",
+    "category": "Butacas Fijas",
+    "price": 249990,
+    "barcode": "SP0023",
+    "image": "SP0021.jpg",
+    "model": "BRIDE BUCKET",
+    "variant": "Azul"
+  },
+  {
+    "sku": "SP0024",
+    "name": "Base butaca (Par)",
+    "brand": "Otros",
+    "category": "Base Butacas",
+    "price": 42990,
+    "barcode": "SP0024",
+    "image": "SP0024.jpg",
+    "model": "Base butaca (Par)",
+    "variant": null
+  },
+  {
+    "sku": "SP0025",
+    "name": "Base butaca fija (Par)",
+    "brand": "Otros",
+    "category": "Base Butacas",
+    "price": 19990,
+    "barcode": "SP0025",
+    "image": "SP0025.jpg",
+    "model": "Base butaca fija (Par)",
+    "variant": null
+  }
+]
