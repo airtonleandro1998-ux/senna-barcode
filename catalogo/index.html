@@ -10,7 +10,7 @@
 <div class="overlay" id="overlay"><aside class="drawer"><div class="drawer-head"><h2>Tu pedido</h2><button class="close" id="close">×</button></div><div id="items"></div><div class="total"><span>Total estimado</span><span id="total">$0</span></div><button class="primary send" id="send">ENVIAR PEDIDO POR WHATSAPP</button><p class="note">El pedido se enviará como mensaje para confirmar disponibilidad, despacho y forma de pago. No se realiza un cobro en esta página.</p></aside></div>
 <script>
 const WA='56986427075';let products=[],category='Todos',cart={};const money=n=>'$'+Math.round(n).toLocaleString('es-CL');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function init(){try{products=await(await fetch('./products.json?v=20261111')).json();renderCats();render()}catch(e){document.getElementById('products').innerHTML='<div class="empty">No se pudo cargar el catálogo.</div>'}}
+async function init(){try{products=await(await fetch('./products.json?v=20261112')).json();renderCats();render()}catch(e){document.getElementById('products').innerHTML='<div class="empty">No se pudo cargar el catálogo.</div>'}}
 function renderCats(){let a=['Todos',...new Set(products.map(x=>x.category))];document.getElementById('cats').innerHTML=a.map(x=>`<button class="chip ${x===category?'active':''}" data-cat="${esc(x)}">${esc(x)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{category=b.dataset.cat;renderCats();render()})}
 function render(){
  let q=document.getElementById('search').value.trim().toLowerCase();
