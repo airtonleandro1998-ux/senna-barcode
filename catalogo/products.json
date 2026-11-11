@@ -1,0 +1,12 @@
+[
+ {"sku":"SP-IL001","name":"Foco LED H4 120W 6000K","category":"Iluminación","price":24990},
+ {"sku":"SP-IL002","name":"Foco LED H7 100W 6000K","category":"Iluminación","price":22990},
+ {"sku":"SP-IL003","name":"Barra LED curva 22 pulgadas 120W","category":"Iluminación","price":89990},
+ {"sku":"SP-IL004","name":"Neblinero LED 3.0 pulgadas 2 colores","category":"Iluminación","price":39990},
+ {"sku":"SP-IL005","name":"Foco LED T10 CANBUS","category":"Iluminación","price":5990},
+ {"sku":"SP-IL006","name":"Foco LED 1156 CANBUS","category":"Iluminación","price":5990},
+ {"sku":"SP-IN001","name":"Fundas de asientos premium","category":"Interior","price":59990},
+ {"sku":"SP-IN002","name":"Cubre volante de cuero","category":"Interior","price":14990},
+ {"sku":"SP-IN003","name":"Pisos de goma universal","category":"Interior","price":29990},
+ {"sku":"SP-IN004","name":"Apoyabrazos universal","category":"Interior","price":24990}
+]
