@@ -98,7 +98,7 @@
     "brand": "Bride",
     "category": "Butacas Reclinables",
     "price": 449990,
-    "barcode": "SP0003.jpg",
+    "barcode": "SP0004",
     "image": "imagenes/SP0003.jpg",
     "model": "BRIDE ILLEST",
     "variant": "Rojo"
@@ -186,7 +186,7 @@
     "brand": "Bride",
     "category": "Butacas Reclinables",
     "price": 369990,
-    "barcode": "SP0011.jpg",
+    "barcode": "SP0012",
     "image": "imagenes/SP0011.jpg",
     "model": "BRIDE COBRA",
     "variant": "Negro"
@@ -252,7 +252,7 @@
     "brand": "Bride",
     "category": "Butacas Fijas",
     "price": 219990,
-    "barcode": "SP0017.jpg",
+    "barcode": "SP0018",
     "image": "imagenes/SP0017.jpg",
     "model": "BRIDE LOW MAX FIJA",
     "variant": "Azul"
@@ -263,7 +263,7 @@
     "brand": "Bride",
     "category": "Butacas Fijas",
     "price": 219990,
-    "barcode": "SP0017.jpg",
+    "barcode": "SP0019",
     "image": "imagenes/SP0017.jpg",
     "model": "BRIDE LOW MAX FIJA",
     "variant": "Rojo"
@@ -296,7 +296,7 @@
     "brand": "Bride",
     "category": "Butacas Fijas",
     "price": 249990,
-    "barcode": "SP0021.jpg",
+    "barcode": "SP0022",
     "image": "imagenes/SP0021.jpg",
     "model": "BRIDE BUCKET",
     "variant": "Gris"
@@ -307,7 +307,7 @@
     "brand": "Bride",
     "category": "Butacas Fijas",
     "price": 249990,
-    "barcode": "SP0021.jpg",
+    "barcode": "SP0023",
     "image": "imagenes/SP0021.jpg",
     "model": "BRIDE BUCKET",
     "variant": "Azul"
